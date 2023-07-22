@@ -38,7 +38,7 @@
 </script>
 
 <svelte:head>
-	<title>Tasks App</title>
+	<title>todoit. — make your todos</title>
 </svelte:head>
 
 <main class="max-w-screen-md mx-auto h-screen">
