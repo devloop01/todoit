@@ -25,8 +25,9 @@
 			...t,
 			{
 				id: crypto.randomUUID(),
-				text: todoText,
-				completed: false
+				title: todoText,
+				completed: false,
+				createdAt: new Date()
 			}
 		]);
 		todoText = '';
@@ -127,7 +128,7 @@
 									class="checkbox"
 									bind:checked={todo.completed}
 								/>
-								<span class:line-through={todo.completed}>{todo.text}</span>
+								<span class:line-through={todo.completed}>{todo.title}</span>
 							</label>
 							<button
 								type="button"
@@ -153,7 +154,7 @@
 									class="checkbox"
 									bind:checked={todo.completed}
 								/>
-								<span class:line-through={todo.completed}>{todo.text}</span>
+								<span class:line-through={todo.completed}>{todo.title}</span>
 							</label>
 							<button
 								type="button"
