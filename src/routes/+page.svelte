@@ -1,15 +1,14 @@
 <script lang="ts">
 	import '../app.css';
 
-	import { todos } from '$lib/store';
+	import type { TodoFilter } from '$lib/types';
 
-	import { Trash2Icon } from 'lucide-svelte';
+	import { todoText, todos } from '$lib/store';
 
-	type Filter = 'ALL' | 'REMAINING' | 'COMPLETED';
+	import Modal from '$components/Modal.svelte';
+	import { TodoList } from '$components/todo';
 
-	let todoText = '';
-
-	let filter: Filter = 'ALL';
+	let filter: TodoFilter = 'ALL';
 
 	$: filteredTodos = $todos.filter((todo) => {
 		if (filter === 'ALL') return true;
@@ -20,21 +19,12 @@
 	$: remainingTodos = filteredTodos.filter((todo) => !todo.completed);
 
 	function addTodo() {
-		if (!todoText || todoText.trim().length === 0) return;
-		todos.update((t) => [
-			...t,
-			{
-				id: crypto.randomUUID(),
-				title: todoText,
-				completed: false,
-				createdAt: new Date()
-			}
-		]);
-		todoText = '';
-	}
+		$todoText = $todoText.trim();
 
-	function removeTodo(id: string) {
-		todos.update((t) => t.filter((todo) => todo.id !== id));
+		if (!todoText) return;
+
+		todos.addTodo($todoText);
+		$todoText = '';
 	}
 </script>
 
@@ -55,7 +45,7 @@
 						type="text"
 						class="input input-bordered w-full"
 						aria-label="Add a new todo"
-						bind:value={todoText}
+						bind:value={$todoText}
 						on:keydown={(e) => {
 							if (e.key === 'Enter') addTodo();
 						}}
@@ -119,54 +109,18 @@
 				</div>
 
 				<div class="flex flex-col gap-3">
-					{#each remainingTodos as todo (todo.id)}
-						<div class="p-3 border rounded-xl flex justify-between">
-							<label for={todo.id} class="cursor-pointer flex items-center gap-3">
-								<input
-									type="checkbox"
-									id={todo.id}
-									class="checkbox"
-									bind:checked={todo.completed}
-								/>
-								<span class:line-through={todo.completed}>{todo.title}</span>
-							</label>
-							<button
-								type="button"
-								aria-label="delete todo"
-								class="btn btn-square btn-xs btn-ghost"
-								on:click={() => removeTodo(todo.id)}
-							>
-								<Trash2Icon size={16} />
-							</button>
-						</div>
-					{/each}
+					<TodoList todos={remainingTodos} />
 
 					{#if completedTodos.length !== 0 && remainingTodos.length !== 0}
 						<div class="border-b" />
 					{/if}
 
-					{#each completedTodos as todo (todo.id)}
-						<div class="p-3 border rounded-xl flex justify-between">
-							<label for={todo.id} class="cursor-pointer flex items-center gap-3">
-								<input
-									type="checkbox"
-									id={todo.id}
-									class="checkbox"
-									bind:checked={todo.completed}
-								/>
-								<span class:line-through={todo.completed}>{todo.title}</span>
-							</label>
-							<button
-								type="button"
-								aria-label="delete todo"
-								class="btn btn-square btn-xs btn-ghost"
-								on:click={() => removeTodo(todo.id)}
-							>
-								<Trash2Icon size={16} />
-							</button>
-						</div>
-					{/each}
+					<TodoList todos={completedTodos} />
 				</div>
+
+				<Modal>
+					<h1>Modal</h1>
+				</Modal>
 			</div>
 		</div>
 	</div>
