@@ -21,7 +21,7 @@
 	function addTodo() {
 		$todoText = $todoText.trim();
 
-		if (!todoText) return;
+		if (!$todoText) return;
 
 		todos.addTodo($todoText);
 		$todoText = '';
