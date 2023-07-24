@@ -13,18 +13,20 @@
 		<input
 			type="checkbox"
 			id={todo.id}
-			class="checkbox"
+			class=""
 			checked={todo.completed}
 			on:click={() => todos.toggleTodo(todo.id)}
 		/>
 		<span class:line-through={todo.completed}>{todo.title}</span>
 	</label>
-	<button
-		type="button"
-		aria-label="delete todo"
-		class="btn btn-square btn-xs btn-ghost"
-		on:click={() => todos.removeTodo(todo.id)}
-	>
-		<Trash2Icon size={16} />
-	</button>
+	{#if todo.completed}
+		<button
+			type="button"
+			aria-label="delete todo"
+			class=""
+			on:click={() => todos.removeTodo(todo.id)}
+		>
+			<Trash2Icon size={16} />
+		</button>
+	{/if}
 </div>

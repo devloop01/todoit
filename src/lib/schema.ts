@@ -7,3 +7,5 @@ export const todoSchema = z.object({
 	completed: z.boolean(),
 	createdAt: z.date()
 });
+
+export const todoFilterSchema = z.enum(['ALL', 'COMPLETED', 'REMAINING']);

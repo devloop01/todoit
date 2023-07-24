@@ -3,13 +3,11 @@
 
 	import TodoCard from './TodoCard.svelte';
 
-	export let todos: Todo[] = [];
+	export let todos: Todo[];
 </script>
 
-<!-- {#if todos.length === 0}
-	<p class="text-center text-gray-500">No todos yet.</p>
-{:else} -->
-{#each todos as todo (todo.id)}
-	<TodoCard {todo} />
-{/each}
-<!-- {/if} -->
+<div class="flex flex-col gap-2">
+	{#each todos as todo (todo.id)}
+		<TodoCard {todo} />
+	{/each}
+</div>
