@@ -4,11 +4,11 @@ import { writable } from 'svelte/store';
 
 const titles = ['Learn Svelte', 'Learn SvelteKit', 'Learn React', 'Learn Next.js', 'Learn Vue'];
 
-const todosArray = Array.from({ length: 10 }).map(() => ({
+const todosArray = Array.from({ length: 20 }).map(() => ({
 	id: crypto.randomUUID(),
 	title: titles[Math.floor(Math.random() * titles.length)],
 	description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-	completed: Math.random() > 0.5 ? true : false,
+	completed: Math.random() > 0.8 ? true : false,
 	createdAt: new Date()
 }));
 
