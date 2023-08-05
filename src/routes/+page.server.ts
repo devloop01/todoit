@@ -1,15 +1,12 @@
 import type { PageServerLoad, Actions } from './$types';
-import { todos } from '$lib/store';
-import { createTodo, deleteTodo, toggleTodo } from '$lib/server/db';
+import { createTodo, deleteTodo, getTodos, toggleTodo } from '$lib/server/db';
 import { fail } from '@sveltejs/kit';
 
 export const load = (async () => {
-	const all = todos.getAllTodos();
-
-	console.log('all todos\n', all, '\n\n');
+	const todos = getTodos();
 
 	return {
-		todos: all
+		todos
 	};
 }) satisfies PageServerLoad;
 
