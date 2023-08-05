@@ -1,10 +1,10 @@
 import type { Todo } from '../types';
 
-import { writable } from 'svelte/store';
+import { writable, get } from 'svelte/store';
 
 const titles = ['Learn Svelte', 'Learn SvelteKit', 'Learn React', 'Learn Next.js', 'Learn Vue'];
 
-const todosArray = Array.from({ length: 20 }).map(() => ({
+const todosArray = Array.from({ length: 1 }).map(() => ({
 	id: crypto.randomUUID(),
 	title: titles[Math.floor(Math.random() * titles.length)],
 	description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
@@ -13,7 +13,8 @@ const todosArray = Array.from({ length: 20 }).map(() => ({
 }));
 
 function createTodoStore() {
-	const { subscribe, update, set } = writable<Todo[]>(todosArray);
+	const todoStore = writable<Todo[]>(todosArray);
+	const { subscribe, update, set } = todoStore;
 
 	return {
 		subscribe,

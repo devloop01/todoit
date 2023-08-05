@@ -1,30 +1,26 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-
+	import type { ActionData, PageData } from './$types';
 	import type { TodoFilter } from '$lib/types';
 
-	import { todoText, todos } from '$lib/store';
-
 	import { TodoList } from '$components/todo';
+	import { enhance } from '$app/forms';
+
+	export let data: PageData;
+	export let form: ActionData;
+
+	$: todos = data.todos;
+
+	console.log(todos);
 
 	let filter: TodoFilter = 'ALL';
 
-	$: filteredTodos = $todos.filter((todo) => {
+	$: filteredTodos = todos.filter((todo) => {
 		if (filter === 'ALL') return true;
 		if (filter === 'REMAINING') return !todo.completed;
 		if (filter === 'COMPLETED') return todo.completed;
 	});
 	$: completedTodos = filteredTodos.filter((todo) => todo.completed);
 	$: remainingTodos = filteredTodos.filter((todo) => !todo.completed);
-
-	function addTodo() {
-		$todoText = $todoText.trim();
-
-		if (!$todoText) return;
-
-		todos.addTodo($todoText);
-		$todoText = '';
-	}
 </script>
 
 <svelte:head>
@@ -89,8 +85,8 @@
 		</div>
 
 		<div class="flex items-center gap-3">
-			<span class="font-inter text-xs">{$todos.filter((t) => !t.completed).length} remaining</span>
-			<span class="font-inter text-xs">{$todos.filter((t) => t.completed).length} completed</span>
+			<span class="font-inter text-xs">{todos.filter((t) => !t.completed).length} remaining</span>
+			<span class="font-inter text-xs">{todos.filter((t) => t.completed).length} completed</span>
 		</div>
 	</div>
 
@@ -107,26 +103,33 @@
 	</main>
 
 	<div class="w-full p-2 border-t bg-white">
-		<div class="flex gap-2">
-			<input
-				type="text"
-				class="w-full rounded h-10 border px-3 shadow transition-colors
+		<form method="POST" action="?/create" class="flex gap-2" use:enhance>
+			<label class="w-full">
+				<span class="sr-only">Create Todo</span>
+				<input
+					type="text"
+					name="todo-text"
+					value={form?.text ?? ''}
+					placeholder="Add a new todo"
+					aria-label="create todo"
+					autocomplete="off"
+					required
+					class="w-full rounded h-10 border px-3 shadow transition-colors
 						hover:bg-gray-50 hover:border-black/15
 						focus:outline-none focus:border-blue-500/80"
-				placeholder="Add a new todo"
-				aria-label="Add a new todo"
-				bind:value={$todoText}
-				on:keydown={(e) => {
-					if (e.key === 'Enter') addTodo();
-				}}
-			/>
-			<button
-				type="button"
-				class="bg-white rounded px-3 h-10 cursor-pointer border"
-				on:click={addTodo}>Add</button
-			>
-		</div>
+				/>
+			</label>
+			<button type="submit" class="bg-white rounded px-3 h-10 cursor-pointer border">Add</button>
+		</form>
 	</div>
+
+	{#if form}
+		{#if form.error}
+			<div class="bg-red-500 p-2">
+				<p class="text-white font-inter text-sm">{form.error}</p>
+			</div>
+		{/if}
+	{/if}
 </div>
 
 <style>
