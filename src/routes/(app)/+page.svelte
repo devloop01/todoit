@@ -86,7 +86,7 @@
 
 <main class="flex-1 py-2 overflow-y-auto">
 	<div class="grid">
-		<TodoList {todos} class="px-2" />
+		<TodoList todos={filteredTodos} class="px-2" />
 
 		<!-- {#if completedTodos.length !== 0 && remainingTodos.length !== 0}
 			<div class="border-slate-250 border-b my-3" />
