@@ -42,7 +42,7 @@
 			/>
 			<span
 				class="font-inter text-xs w-fit flex items-center cursor-pointer px-3 py-1 border rounded-full select-none transition-colors
-									peer-checked:bg-blue-500 peer-checked:border-blue-500 peer-checked:text-white
+									peer-checked:bg-primary peer-checked:border-transparent peer-checked:text-white
 									peer-[&:not(:checked)]:hover:bg-blue-50">All</span
 			>
 		</label>
@@ -57,7 +57,7 @@
 			/>
 			<span
 				class="font-inter text-xs w-fit flex items-center cursor-pointer px-3 py-1 border rounded-full select-none transition-colors
-									peer-checked:bg-blue-500 peer-checked:border-blue-500 peer-checked:text-white
+									peer-checked:bg-primary peer-checked:border-transparent peer-checked:text-white
 									peer-[&:not(:checked)]:hover:bg-blue-50">Remaining</span
 			>
 		</label>
@@ -72,7 +72,7 @@
 			/>
 			<span
 				class="font-inter text-xs w-fit flex items-center cursor-pointer px-3 py-1 border rounded-full select-none transition-colors
-									peer-checked:bg-blue-500 peer-checked:border-blue-500 peer-checked:text-white
+									peer-checked:bg-primary peer-checked:border-transparent peer-checked:text-white
 									peer-[&:not(:checked)]:hover:bg-blue-50">Completed</span
 			>
 		</label>
@@ -85,15 +85,21 @@
 </div>
 
 <main class="flex-1 py-2 overflow-y-auto">
-	<div class="grid">
-		<TodoList todos={filteredTodos} class="px-2" />
+	{#if filteredTodos.length === 0}
+		<div class="flex flex-col items-center justify-center h-full">
+			<p class="font-inter text-sm text-slate-250">No todos found</p>
+		</div>
+	{:else}
+		<div class="grid">
+			<TodoList todos={filteredTodos} class="px-2" />
 
-		<!-- {#if completedTodos.length !== 0 && remainingTodos.length !== 0}
-			<div class="border-slate-250 border-b my-3" />
-		{/if}
-
-		<TodoList todos={completedTodos} class="px-2" /> -->
-	</div>
+			<!-- {#if completedTodos.length !== 0 && remainingTodos.length !== 0}
+				<div class="border-slate-250 border-b my-3" />
+			{/if}
+	
+			<TodoList todos={completedTodos} class="px-2" /> -->
+		</div>
+	{/if}
 </main>
 
 <div class="w-full p-2 border-t bg-white">
