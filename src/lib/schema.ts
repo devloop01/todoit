@@ -8,4 +8,4 @@ export const todoSchema = z.object({
 	createdAt: z.date()
 });
 
-export const todoFilterSchema = z.enum(['ALL', 'COMPLETED', 'REMAINING']);
+export const todoFilterSchema = z.enum(['COMPLETED', 'REMAINING']);

@@ -14,15 +14,12 @@
 
 	$: todos = data.todos;
 
-	let filter: TodoFilter = 'ALL';
+	let filter: TodoFilter = 'REMAINING';
 
 	$: filteredTodos = todos.filter((todo) => {
-		if (filter === 'ALL') return true;
 		if (filter === 'REMAINING') return !todo.completed;
 		if (filter === 'COMPLETED') return todo.completed;
 	});
-	$: completedTodos = filteredTodos.filter((todo) => todo.completed);
-	$: remainingTodos = filteredTodos.filter((todo) => !todo.completed);
 </script>
 
 <svelte:head>
@@ -31,21 +28,6 @@
 
 <div class="space-y-2 border-b px-2 py-2 bg-white">
 	<div class="flex gap-2">
-		<label for="filter-all" class="inline-block">
-			<input
-				type="radio"
-				id="filter-all"
-				class="sr-only peer"
-				name="filter"
-				value="ALL"
-				bind:group={filter}
-			/>
-			<span
-				class="font-inter text-xs w-fit flex items-center cursor-pointer px-3 py-1 border rounded-full select-none transition-colors
-									peer-checked:bg-primary peer-checked:border-transparent peer-checked:text-white
-									peer-[&:not(:checked)]:hover:bg-blue-50">All</span
-			>
-		</label>
 		<label for="filter-remaining" class="inline-block">
 			<input
 				type="radio"
