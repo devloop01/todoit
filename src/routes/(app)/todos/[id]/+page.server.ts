@@ -1,9 +1,9 @@
-import { getTodoById } from '$lib/server/db';
+import { getTodo } from '$lib/server/db/handlers/todos';
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
 export const load = (async ({ params }) => {
-	const todo = getTodoById(params.id);
+	const todo = getTodo(params.id);
 
 	if (!todo) throw error(404, { message: 'Todo not found' });
 

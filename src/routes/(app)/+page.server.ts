@@ -1,9 +1,11 @@
 import type { PageServerLoad, Actions } from './$types';
-import { createTodo, deleteTodo, getTodos, toggleTodo } from '$lib/server/db';
 import { fail } from '@sveltejs/kit';
+import { createTodo, getTodos, updateTodo, deleteTodo } from '$lib/server/db/handlers/todos';
 
 export const load = (async () => {
-	const todos = getTodos();
+	const todos = await getTodos();
+
+	console.log(todos.filter((todo) => !todo.completed));
 
 	return {
 		todos
@@ -21,7 +23,7 @@ export const actions = {
 				error: 'No todo text provided'
 			});
 
-		createTodo(todoText);
+		await createTodo(todoText);
 	},
 
 	delete: async ({ request }) => {
@@ -35,7 +37,7 @@ export const actions = {
 			});
 
 		try {
-			deleteTodo(todoId);
+			await deleteTodo(todoId);
 		} catch (e) {
 			return fail(404, {
 				todoId,
@@ -55,7 +57,7 @@ export const actions = {
 			});
 
 		try {
-			toggleTodo(todoId);
+			await updateTodo(todoId, { completed: true });
 		} catch (e) {
 			return fail(404, {
 				todoId,
