@@ -7,7 +7,6 @@
 
 	let className: string | undefined | null = undefined;
 	export { className as class };
-	export let href: HTMLAnchorAttributes['href'] = undefined;
 	export let type: HTMLButtonAttributes['type'] = undefined;
 	export let variant: VariantProps<typeof buttonVariants>['variant'] = 'default';
 	export let size: VariantProps<typeof buttonVariants>['size'] = 'default';
@@ -18,24 +17,15 @@
 		size?: VariantProps<typeof buttonVariants>['size'];
 	};
 
-	interface AnchorElement extends Props, HTMLAnchorAttributes {
-		href?: HTMLAnchorAttributes['href'];
-		type?: never;
-	}
-
 	interface ButtonElement extends Props, HTMLButtonAttributes {
 		type?: HTMLButtonAttributes['type'];
-		href?: never;
 	}
 
-	type $$Props = AnchorElement | ButtonElement;
+	type $$Props = ButtonElement;
 </script>
 
-<!-- svelte-ignore a11y-no-static-element-interactions -->
-<svelte:element
-	this={href ? 'a' : 'button'}
-	type={href ? undefined : type}
-	{href}
+<button
+	{type}
 	class={cn(buttonVariants({ variant, size, className }))}
 	{...$$restProps}
 	on:click
@@ -46,4 +36,4 @@
 	on:mouseleave
 >
 	<slot />
-</svelte:element>
+</button>

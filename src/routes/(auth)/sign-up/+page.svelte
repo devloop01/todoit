@@ -32,7 +32,7 @@
 						<PasswordInput name="password" id="password" placeholder="Your password" />
 					</div>
 					<div class="pt-2.5">
-						<Button type="submit" class="w-full">Sign Up</Button>
+						<Button class="w-full">Sign Up</Button>
 					</div>
 				</div>
 			</form>

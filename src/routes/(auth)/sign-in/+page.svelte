@@ -27,8 +27,8 @@
 						<Label for="password" class="font-medium">Password</Label>
 						<PasswordInput name="password" id="password" placeholder="Your password" />
 					</div>
-					<div>
-						<Button type="submit" class="w-full">Sign In</Button>
+					<div class="pt-2.5">
+						<Button class="w-full">Sign In</Button>
 					</div>
 				</div>
 			</form>
