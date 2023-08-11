@@ -1,7 +1,6 @@
-import type { z } from 'zod';
+import type { InferModel } from 'drizzle-orm';
+import type { Schema } from './server/db';
 
-import type { todoFilterSchema, todoSchema } from './schema';
+export type Todo = InferModel<typeof Schema.todos>;
 
-export type Todo = z.infer<typeof todoSchema>;
-
-export type TodoFilter = z.infer<typeof todoFilterSchema>;
+export type TodoFilter = 'COMPLETED' | 'REMAINING';
