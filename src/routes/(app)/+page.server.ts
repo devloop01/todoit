@@ -1,6 +1,12 @@
 import type { PageServerLoad, Actions } from './$types';
 import { fail } from '@sveltejs/kit';
-import { createTodo, getTodos, updateTodo, deleteTodo } from '$lib/server/db/handlers/todos';
+import {
+	createTodo,
+	getTodos,
+	updateTodo,
+	deleteTodo,
+	getTodo
+} from '$lib/server/db/handlers/todos';
 
 export const load = (async () => {
 	const todos = await getTodos();
@@ -55,7 +61,9 @@ export const actions = {
 			});
 
 		try {
-			await updateTodo(todoId, { completed: true });
+			const todo = await getTodo(todoId);
+
+			await updateTodo(todo.id, { completed: !todo.completed });
 		} catch (e) {
 			return fail(404, {
 				todoId,
