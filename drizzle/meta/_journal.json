@@ -15,6 +15,27 @@
       "when": 1691692168688,
       "tag": "0001_closed_ultimo",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1691736664933,
+      "tag": "0002_salty_donald_blake",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1691736718062,
+      "tag": "0003_steep_hellfire_club",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1691736751818,
+      "tag": "0004_groovy_red_skull",
+      "breakpoints": true
     }
   ]
 }
