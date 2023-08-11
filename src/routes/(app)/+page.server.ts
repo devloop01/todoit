@@ -5,8 +5,6 @@ import { createTodo, getTodos, updateTodo, deleteTodo } from '$lib/server/db/han
 export const load = (async () => {
 	const todos = await getTodos();
 
-	console.log(todos.filter((todo) => !todo.completed));
-
 	return {
 		todos
 	};

@@ -26,7 +26,7 @@
 	<title>todoit. — make your todos</title>
 </svelte:head>
 
-<div class="space-y-2 border-b px-2 py-2 bg-white">
+<div class="space-y-2 border-b px-4 py-3 bg-white">
 	<div class="flex gap-2">
 		<label for="filter-remaining" class="inline-block">
 			<input
@@ -74,12 +74,6 @@
 	{:else}
 		<div class="grid">
 			<TodoList todos={filteredTodos} class="px-2" />
-
-			<!-- {#if completedTodos.length !== 0 && remainingTodos.length !== 0}
-				<div class="border-slate-250 border-b my-3" />
-			{/if}
-	
-			<TodoList todos={completedTodos} class="px-2" /> -->
 		</div>
 	{/if}
 </main>
