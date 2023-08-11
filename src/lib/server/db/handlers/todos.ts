@@ -1,4 +1,4 @@
-import { eq, type InferModel } from 'drizzle-orm';
+import { desc, eq, type InferModel } from 'drizzle-orm';
 
 import { Schema, db } from '../index';
 
@@ -13,7 +13,7 @@ const getTodo = async (id: string) => {
 };
 
 const getTodos = async () => {
-	return await db.select().from(Schema.todos);
+	return await db.select().from(Schema.todos).orderBy(desc(Schema.todos.createdAt));
 };
 
 const updateTodo = async (
