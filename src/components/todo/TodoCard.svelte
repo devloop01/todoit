@@ -15,7 +15,7 @@
 
 <Card class="flex justify-between items-center">
 	<CardHeader class="p-0 px-4">
-		<form method="POST" action="?/complete" class="flex items-center gap-3" use:enhance>
+		<form method="POST" action="?/toggle" class="flex items-center gap-3" use:enhance>
 			<button aria-label="toggle todo">
 				{#if todo.completed}
 					<CheckSquareIcon size={16} />
@@ -24,6 +24,7 @@
 				{/if}
 			</button>
 			<input class="hidden" type="hidden" name="todo-id" id={todo.id} value={todo.id} />
+			<input class="hidden" type="hidden" name="todo-is-complete" value={todo.completed} />
 			<Label for={todo.id} class="sr-only">
 				{todo.title}
 			</Label>
@@ -40,7 +41,7 @@
 	{#if todo.completed}
 		<CardFooter class="p-0 px-2">
 			<form method="POST" action="?/delete" use:enhance>
-				<input type="hidden" name="todo-id" value={todo.id} />
+				<input class="hidden" type="hidden" name="todo-id" value={todo.id} />
 				<Button variant="ghost" size="icon" aria-label="delete todo">
 					<Trash2Icon size={16} />
 				</Button>

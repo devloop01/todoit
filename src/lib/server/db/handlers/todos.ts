@@ -21,7 +21,15 @@ const updateTodo = async (
 	todo: Partial<Omit<InferModel<typeof Schema.todos>, 'id' | 'createdAt'>>
 ) => {
 	const updatedTodo = (
-		await db.update(Schema.todos).set(todo).where(eq(Schema.todos.id, id)).returning()
+		await db
+			.update(Schema.todos)
+			.set({
+				title: todo.title,
+				description: todo.description,
+				completed: todo.completed
+			})
+			.where(eq(Schema.todos.id, id))
+			.returning()
 	)[0];
 
 	return updatedTodo;

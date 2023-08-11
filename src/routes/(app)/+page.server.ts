@@ -50,20 +50,19 @@ export const actions = {
 		}
 	},
 
-	complete: async ({ request }) => {
+	toggle: async ({ request }) => {
 		const formData = await request.formData();
 		const todoId = formData.get('todo-id')?.toString();
+		const isTodoCompleted = formData.get('todo-is-complete')?.toString();
 
-		if (!todoId)
+		if (!todoId || !isTodoCompleted)
 			return fail(422, {
 				todoId,
 				error: 'Todo id not provided'
 			});
 
 		try {
-			const todo = await getTodo(todoId);
-
-			await updateTodo(todo.id, { completed: !todo.completed });
+			await updateTodo(todoId, { completed: isTodoCompleted === 'true' ? false : true });
 		} catch (e) {
 			return fail(404, {
 				todoId,
