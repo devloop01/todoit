@@ -2,8 +2,8 @@
 	import Header from '$components/header.svelte';
 </script>
 
-<div class="max-w-screen-md mx-auto bg-gray-50">
-	<div class="relative h-screen flex flex-col justify-between flex-wrap">
+<div class="mx-auto max-w-screen-md bg-gray-50">
+	<div class="relative flex h-screen flex-col flex-wrap justify-between">
 		<Header />
 
 		<slot />

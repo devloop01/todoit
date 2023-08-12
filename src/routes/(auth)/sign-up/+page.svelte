@@ -11,7 +11,7 @@
 </svelte:head>
 
 <div class="space-y-6">
-	<h1 class="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl font-inter">
+	<h1 class="scroll-m-20 font-inter text-4xl font-extrabold tracking-tight lg:text-5xl">
 		Hello User
 	</h1>
 
@@ -41,7 +41,7 @@
 		<CardFooter>
 			<p class="leading-7 [&:not(:first-child)]:mt-6">
 				Already have an account? <a href="/sign-in"
-					><span class="text-primary font-medium">Sign In</span></a
+					><span class="font-medium text-primary">Sign In</span></a
 				>
 			</p>
 		</CardFooter>

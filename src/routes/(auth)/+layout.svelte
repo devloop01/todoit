@@ -1,14 +1,14 @@
 <script lang="ts">
 </script>
 
-<div class="h-screen flex flex-col">
-	<header class="p-4 border-b bg-white">
+<div class="flex h-screen flex-col">
+	<header class="border-b bg-white p-4">
 		<a href="/">
-			<span class="font-inter font-bold text-2xl">todoit.</span>
+			<span class="font-inter text-2xl font-bold">todoit.</span>
 		</a>
 	</header>
 
-	<div class="flex-1 flex flex-col justify-center px-4">
+	<div class="flex flex-1 flex-col justify-center px-4">
 		<slot />
 	</div>
 </div>

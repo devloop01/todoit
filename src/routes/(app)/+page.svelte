@@ -26,20 +26,20 @@
 	<title>todoit. — make your todos</title>
 </svelte:head>
 
-<div class="space-y-2 border-b px-4 py-3 bg-white">
+<div class="space-y-2 border-b bg-white px-4 py-3">
 	<div class="flex gap-2">
 		<label for="filter-remaining" class="inline-block">
 			<input
 				type="radio"
 				id="filter-remaining"
-				class="sr-only peer"
+				class="peer sr-only"
 				name="filter"
 				value="REMAINING"
 				bind:group={filter}
 			/>
 			<span
-				class="font-inter text-xs w-fit flex items-center cursor-pointer px-3 py-1 border rounded-full select-none transition-colors
-									peer-checked:bg-primary peer-checked:border-transparent peer-checked:text-white
+				class="flex w-fit cursor-pointer select-none items-center rounded-full border px-3 py-1 font-inter text-xs transition-colors
+									peer-checked:border-transparent peer-checked:bg-primary peer-checked:text-white
 									peer-[&:not(:checked)]:hover:bg-blue-50">Remaining</span
 			>
 		</label>
@@ -47,14 +47,14 @@
 			<input
 				type="radio"
 				id="filter-completed"
-				class="sr-only peer"
+				class="peer sr-only"
 				name="filter"
 				value="COMPLETED"
 				bind:group={filter}
 			/>
 			<span
-				class="font-inter text-xs w-fit flex items-center cursor-pointer px-3 py-1 border rounded-full select-none transition-colors
-									peer-checked:bg-primary peer-checked:border-transparent peer-checked:text-white
+				class="flex w-fit cursor-pointer select-none items-center rounded-full border px-3 py-1 font-inter text-xs transition-colors
+									peer-checked:border-transparent peer-checked:bg-primary peer-checked:text-white
 									peer-[&:not(:checked)]:hover:bg-blue-50">Completed</span
 			>
 		</label>
@@ -66,10 +66,10 @@
 	</div>
 </div>
 
-<main class="flex-1 py-2 overflow-y-auto">
+<main class="flex-1 overflow-y-auto py-2">
 	{#if filteredTodos.length === 0}
-		<div class="flex flex-col items-center justify-center h-full">
-			<p class="font-inter text-sm text-slate-250">No todos found</p>
+		<div class="flex h-full flex-col items-center justify-center">
+			<p class="text-slate-250 font-inter text-sm">No todos found</p>
 		</div>
 	{:else}
 		<div class="grid">
@@ -78,7 +78,7 @@
 	{/if}
 </main>
 
-<div class="w-full p-2 border-t bg-white">
+<div class="w-full border-t bg-white p-2">
 	<form method="POST" action="?/create" class="flex gap-2" use:enhance>
 		<Label class="sr-only" for="todo-input">Create Todo</Label>
 
@@ -100,7 +100,7 @@
 {#if form}
 	{#if form.error}
 		<div class="bg-red-500 p-2">
-			<p class="text-white font-inter text-sm">{form.error}</p>
+			<p class="font-inter text-sm text-white">{form.error}</p>
 		</div>
 	{/if}
 {/if}
