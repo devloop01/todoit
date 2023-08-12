@@ -66,7 +66,7 @@
 	</div>
 </div>
 
-<main class="flex-1 overflow-y-auto py-2">
+<main class="flex-1 overflow-y-auto bg-slate-100/30 py-2">
 	{#if filteredTodos.length === 0}
 		<div class="flex h-full flex-col items-center justify-center">
 			<p class="text-slate-250 font-inter text-sm">No todos found</p>
