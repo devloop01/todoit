@@ -16,7 +16,7 @@ To run the `database` locally on your comuter
 pnpm db:start
 ```
 
-## Generatinig & Pushing migrations
+## Generating & Pushing migrations
 
 I'm using Drizzle ORM to generate and push database migrations (both local & production)
 
@@ -42,12 +42,12 @@ pnpm db:migrate
 
 After importing the project from github in vercel add your `environment` variables
 
-In the `Build and Output Settings` toggle `override` and set the command to
+In the `Build and Output Settings` toggle `override` and set the build command to
 
 ```bash
 pnpm db:migrate && vite build
 ```
 
-This will create all the migrations and push them to the production database that you will connect with your production application
+This will create the migrations and push them to the connected `local` or `production` database
 
-Its better to generate migrations and test them locally after which you can commit the migrations on github which will be used by vercel to `push` into the production database
+It's better to generate migrations and test locally before pushing the migrations.
