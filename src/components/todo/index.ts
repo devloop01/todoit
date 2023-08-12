@@ -1,2 +1,2 @@
-export { default as TodoList } from './TodoList.svelte';
-export { default as TodoCard } from './TodoCard.svelte';
+export { default as TodoList } from './todo-list.svelte';
+export { default as TodoCard } from './todo-card.svelte';
