@@ -1,12 +1,6 @@
 import type { PageServerLoad, Actions } from './$types';
 import { fail } from '@sveltejs/kit';
-import {
-	createTodo,
-	getTodos,
-	updateTodo,
-	deleteTodo,
-	getTodo
-} from '$lib/server/db/handlers/todos';
+import { createTodo, getTodos, updateTodo, deleteTodo } from '$lib/server/db/handlers/todos';
 
 export const load = (async () => {
 	const todos = await getTodos();

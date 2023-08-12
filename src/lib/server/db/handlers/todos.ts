@@ -1,36 +1,35 @@
-import { desc, eq, type InferModel } from 'drizzle-orm';
+import type { NewTodo } from '$lib/types';
 
-import { Schema, db } from '../index';
+import { desc, eq } from 'drizzle-orm';
+
+import { Schema, db } from '..';
 
 const createTodo = async (text: string) => {
-	const newTodo = (await db.insert(Schema.todos).values({ title: text }).returning())[0];
+	const [newTodo] = await db.insert(Schema.todos).values({ title: text }).returning();
 
 	return newTodo;
 };
 
 const getTodo = async (id: string) => {
-	return (await db.select().from(Schema.todos).where(eq(Schema.todos.id, id)))[0];
+	const [todo] = await db.select().from(Schema.todos).where(eq(Schema.todos.id, id));
+
+	return todo;
 };
 
 const getTodos = async () => {
 	return await db.select().from(Schema.todos).orderBy(desc(Schema.todos.createdAt));
 };
 
-const updateTodo = async (
-	id: string,
-	todo: Partial<Omit<InferModel<typeof Schema.todos>, 'id' | 'createdAt'>>
-) => {
-	const updatedTodo = (
-		await db
-			.update(Schema.todos)
-			.set({
-				title: todo.title,
-				description: todo.description,
-				completed: todo.completed
-			})
-			.where(eq(Schema.todos.id, id))
-			.returning()
-	)[0];
+const updateTodo = async (id: string, todo: NewTodo) => {
+	const [updatedTodo] = await db
+		.update(Schema.todos)
+		.set({
+			title: todo.title,
+			description: todo.description,
+			completed: todo.completed
+		})
+		.where(eq(Schema.todos.id, id))
+		.returning();
 
 	return updatedTodo;
 };
