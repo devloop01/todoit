@@ -2,7 +2,7 @@
 	import type { Todo } from '$lib/types';
 	import { cn } from '$lib/utils';
 
-	import TodoCard from './TodoCard.svelte';
+	import TodoCard from './todo-card.svelte';
 
 	export let todos: Todo[];
 </script>
