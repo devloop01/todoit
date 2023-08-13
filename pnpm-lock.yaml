@@ -32,9 +32,6 @@ dependencies:
   tailwindcss-animate:
     specifier: ^1.0.6
     version: 1.0.6(tailwindcss@3.3.3)
-  zod:
-    specifier: ^3.21.4
-    version: 3.21.4
 
 devDependencies:
   '@sveltejs/adapter-auto':
@@ -88,6 +85,9 @@ devDependencies:
   svelte-check:
     specifier: ^3.5.0
     version: 3.5.0(postcss@8.4.27)(svelte@4.2.0)
+  sveltekit-superforms:
+    specifier: ^1.5.1
+    version: 1.5.1(@sveltejs/kit@1.22.5)(svelte@4.2.0)(zod@3.21.4)
   tailwindcss:
     specifier: ^3.3.3
     version: 3.3.3
@@ -103,6 +103,9 @@ devDependencies:
   vite:
     specifier: ^4.4.9
     version: 4.4.9
+  zod:
+    specifier: ^3.21.4
+    version: 3.21.4
 
 packages:
 
@@ -2844,6 +2847,18 @@ packages:
       magic-string: 0.30.2
       periscopic: 3.1.0
 
+  /sveltekit-superforms@1.5.1(@sveltejs/kit@1.22.5)(svelte@4.2.0)(zod@3.21.4):
+    resolution: {integrity: sha512-OqKzxuL1P29CFiK1CD00JRsvEsRPedvrR0qXmB4uqzXAIjOS+DpLjoEaa6Cnkd4H00fRa2161GcZNeEBue/D3A==}
+    peerDependencies:
+      '@sveltejs/kit': 1.x
+      svelte: 3.x || 4.x
+      zod: 3.x
+    dependencies:
+      '@sveltejs/kit': 1.22.5(svelte@4.2.0)(vite@4.4.9)
+      svelte: 4.2.0
+      zod: 3.21.4
+    dev: true
+
   /tailwind-merge@1.14.0:
     resolution: {integrity: sha512-3mFKyCo/MBcgyOTlrY8T7odzZFx+w+qKSMAmdFzRvqBfLlSigU6TZnlFHK0lkMwj9Bj8OYU+9yW9lmGuS0QEnQ==}
     dev: false
@@ -3110,3 +3125,4 @@ packages:
 
   /zod@3.21.4:
     resolution: {integrity: sha512-m46AKbrzKVzOzs/DZgVnG5H55N1sv1M8qZU3A8RIKbs3mrACDNeIOeilDymVb2HdmP8uwshOCF4uJ8uM9rCqJw==}
+    dev: true
