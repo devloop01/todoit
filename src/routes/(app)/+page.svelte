@@ -26,7 +26,7 @@
 	<title>todoit. — make your todos</title>
 </svelte:head>
 
-<div class="space-y-2 border-b bg-white px-4 py-3">
+<div class="space-y-2 border-b px-4 py-3">
 	<div class="flex gap-2">
 		<label for="filter-remaining" class="inline-block">
 			<input
@@ -40,7 +40,7 @@
 			<span
 				class="flex w-fit cursor-pointer select-none items-center rounded-full border px-3 py-1 font-inter text-xs transition-colors
 									peer-checked:border-transparent peer-checked:bg-primary peer-checked:text-white
-									peer-[&:not(:checked)]:hover:bg-blue-50">Remaining</span
+									peer-[&:not(:checked)]:hover:bg-foreground/5">Remaining</span
 			>
 		</label>
 		<label for="filter-completed" class="inline-block">
@@ -55,7 +55,7 @@
 			<span
 				class="flex w-fit cursor-pointer select-none items-center rounded-full border px-3 py-1 font-inter text-xs transition-colors
 									peer-checked:border-transparent peer-checked:bg-primary peer-checked:text-white
-									peer-[&:not(:checked)]:hover:bg-blue-50">Completed</span
+									peer-[&:not(:checked)]:hover:bg-foreground/5">Completed</span
 			>
 		</label>
 	</div>
@@ -66,7 +66,7 @@
 	</div>
 </div>
 
-<main class="flex-1 overflow-y-auto bg-slate-100/30 py-2">
+<main class="flex-1 overflow-y-auto py-2">
 	{#if filteredTodos.length === 0}
 		<div class="flex h-full flex-col items-center justify-center">
 			<p class="text-slate-250 font-inter text-sm">No todos found</p>
@@ -78,7 +78,7 @@
 	{/if}
 </main>
 
-<div class="w-full border-t bg-white p-2">
+<div class="w-full border-t p-2">
 	<form method="POST" action="?/create" class="flex gap-2" use:enhance>
 		<Label class="sr-only" for="todo-input">Create Todo</Label>
 
