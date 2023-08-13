@@ -1,24 +1,24 @@
 <script lang="ts">
-	import type { VariantProps } from 'class-variance-authority';
-	import type { HTMLAnchorAttributes, HTMLButtonAttributes } from 'svelte/elements';
-	import { cn } from '$lib/utils';
+	import type { VariantProps } from "class-variance-authority";
+	import type { HTMLButtonAttributes } from "svelte/elements";
+	import { cn } from "$lib/utils";
 
-	import { buttonVariants } from '.';
+	import { buttonVariants } from ".";
 
 	let className: string | undefined | null = undefined;
 	export { className as class };
-	export let type: HTMLButtonAttributes['type'] = undefined;
-	export let variant: VariantProps<typeof buttonVariants>['variant'] = 'default';
-	export let size: VariantProps<typeof buttonVariants>['size'] = 'default';
+	export let type: HTMLButtonAttributes["type"] = undefined;
+	export let variant: VariantProps<typeof buttonVariants>["variant"] = "default";
+	export let size: VariantProps<typeof buttonVariants>["size"] = "default";
 
 	type Props = {
 		class?: string | null;
-		variant?: VariantProps<typeof buttonVariants>['variant'];
-		size?: VariantProps<typeof buttonVariants>['size'];
+		variant?: VariantProps<typeof buttonVariants>["variant"];
+		size?: VariantProps<typeof buttonVariants>["size"];
 	};
 
 	interface ButtonElement extends Props, HTMLButtonAttributes {
-		type?: HTMLButtonAttributes['type'];
+		type?: HTMLButtonAttributes["type"];
 	}
 
 	type $$Props = ButtonElement;

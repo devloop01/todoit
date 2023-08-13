@@ -2,9 +2,9 @@
 	import { buttonVariants } from './ui/button';
 </script>
 
-<header class="bg-white p-4 flex items-center justify-between border-b">
+<header class="flex items-center justify-between border-b p-4">
 	<a href="/">
-		<span class="font-inter font-bold text-2xl text-primary">todoit.</span>
+		<span class="font-inter text-2xl font-bold text-primary">todoit.</span>
 	</a>
 	{#if true}
 		<a href="/sign-in" class={buttonVariants()}>Sign In</a>

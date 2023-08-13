@@ -13,7 +13,7 @@
 	export let todo: Todo;
 </script>
 
-<Card class="flex justify-between items-center">
+<Card class="flex items-center justify-between transition-colors hover:border-foreground/20">
 	<CardHeader class="p-0 px-4">
 		<form method="POST" action="?/toggle" class="flex items-center gap-3" use:enhance>
 			<button aria-label="toggle todo">
@@ -31,7 +31,7 @@
 		</form>
 	</CardHeader>
 
-	<CardContent class="p-0 flex-1">
+	<CardContent class="flex-1 p-0">
 		<a href={`todos/${todo.id}`}>
 			<p class={cn(todo.completed && 'line-through', 'select-none py-4')}>
 				{todo.title}
