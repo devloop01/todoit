@@ -20,7 +20,7 @@ const getTodos = async () => {
 	return await db.select().from(Schema.todos).orderBy(desc(Schema.todos.createdAt));
 };
 
-const updateTodo = async (id: string, todo: NewTodo) => {
+const updateTodo = async (id: string, todo: Partial<NewTodo>) => {
 	const [updatedTodo] = await db
 		.update(Schema.todos)
 		.set({
@@ -39,3 +39,4 @@ const deleteTodo = async (id: string) => {
 };
 
 export { createTodo, getTodo, getTodos, updateTodo, deleteTodo };
+
