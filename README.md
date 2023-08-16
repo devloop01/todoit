@@ -51,3 +51,5 @@ pnpm db:migrate && vite build
 This will create the migrations and push them to the connected `local` or `production` database
 
 It's better to generate migrations and test locally before pushing the migrations.
+
+PS: sometimes vercel tries to use the generated cache and that results in build error you can disable new builds to use cache using  `VERCEL_FORCE_NO_BUILD_CACHE`, and setting this value to `1`
