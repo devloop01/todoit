@@ -1,9 +1,6 @@
 import type { PageServerLoad } from './$types';
-
 import { fail, type Actions } from '@sveltejs/kit';
-
 import { superValidate } from 'sveltekit-superforms/server';
-
 import { signUpSchema } from '$lib/schema/auth';
 
 export const load = (async () => {
@@ -25,3 +22,4 @@ export const actions = {
 		return { form };
 	}
 } satisfies Actions;
+
