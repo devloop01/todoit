@@ -9,4 +9,5 @@ const client = postgres(DATABASE_URL, { ssl: NODE_ENV === 'production' ? 'requir
 
 const db = drizzle(client, { schema: Schema });
 
-export { db, Schema };
+export { client, db, Schema };
+

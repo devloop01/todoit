@@ -4,7 +4,7 @@ import postgres from 'postgres';
 
 import 'dotenv/config';
 
-const connectionString = process.env.DATABASE_URL;
+const connectionString = process.env.DATABASE_URL ?? '';
 const client = postgres(connectionString, { max: 1 });
 
 const db = drizzle(client);
@@ -22,3 +22,4 @@ export async function main() {
 }
 
 main();
+
