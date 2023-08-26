@@ -1,4 +1,5 @@
 <script>
+	import { currentUser } from '$lib/store';
 	import { buttonVariants } from './ui/button';
 </script>
 
@@ -6,9 +7,11 @@
 	<a href="/">
 		<span class="font-inter text-2xl font-bold text-primary">todoit.</span>
 	</a>
-	{#if true}
+	{#if $currentUser === null}
 		<a href="/sign-in" class={buttonVariants()}>Sign In</a>
 	{:else}
-		<img src="/avatar.jpg" alt="Avatar" class="h-9 w-9 rounded-full" />
+		<form method="POST" action="?/logout">
+			<button type="submit" class={buttonVariants({ variant: 'destructive' })}>Sign Out</button>
+		</form>
 	{/if}
 </header>
