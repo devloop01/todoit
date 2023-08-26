@@ -3,7 +3,7 @@ import { fail, redirect } from '@sveltejs/kit';
 import { setError, superValidate } from 'sveltekit-superforms/server';
 import { signUpSchema } from '$lib/schema/auth';
 import { auth } from '$lib/server/lucia';
-import { PostgresError } from 'postgres';
+import postgres from 'postgres';
 
 export const load = (async () => {
 	const form = await superValidate(signUpSchema);
@@ -48,7 +48,7 @@ export const actions = {
 			locals.auth.setSession(session);
 		} catch (e) {
 			error = true;
-			if (e instanceof PostgresError && e.code === '23505') {
+			if (e instanceof postgres.PostgresError && e.code === '23505') {
 				return setError(form, '', 'Email already in use.');
 			}
 			return setError(form, '', 'Server error, please try again later.');
