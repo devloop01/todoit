@@ -1,12 +1,11 @@
 import type { PageServerLoad, Actions } from './$types';
-import { fail } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
 import { createTodo, getTodos, updateTodo, deleteTodo } from '$lib/server/db/handlers/todos';
+import { auth } from '$lib/server/lucia';
 
 export const load = (async () => {
-	const todos = await getTodos();
-
 	return {
-		todos
+		todos: await getTodos()
 	};
 }) satisfies PageServerLoad;
 
@@ -63,6 +62,14 @@ export const actions = {
 				error: 'Todo not found'
 			});
 		}
+	},
+
+	logout: async ({ locals }) => {
+		const session = await locals.auth.validate();
+		if (!session) return fail(401);
+		await auth.invalidateSession(session.sessionId);
+		locals.auth.setSession(null);
+		throw redirect(302, '/sign-in');
 	}
 } satisfies Actions;
 

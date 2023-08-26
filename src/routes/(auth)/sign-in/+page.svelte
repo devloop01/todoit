@@ -4,15 +4,26 @@
 	import { superForm } from 'sveltekit-superforms/client';
 	// import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
 
+	import { LoaderIcon } from 'lucide-svelte';
 	import { Button } from '$components/ui/button';
 	import { Input } from '$components/ui/input';
 	import { PasswordInput } from '$components/ui/password-input';
 	import { Label } from '$components/ui/label';
 	import { Card, CardContent, CardFooter } from '$components/ui/card';
+	import { Alert, AlertTitle } from '$components/ui/alert';
 
 	export let data: PageData;
 
-	const { form, errors, enhance, constraints } = superForm(data.form);
+	let loading = false;
+
+	const { form, errors, enhance, constraints } = superForm(data.form, {
+		onSubmit() {
+			loading = true;
+		},
+		onResult() {
+			loading = false;
+		}
+	});
 </script>
 
 <svelte:head>
@@ -26,6 +37,18 @@
 		</h3>
 		<p class="pl-1 text-gray-600">write your todos</p>
 	</div>
+
+	{#if $errors._errors}
+		<div class="space-y-2">
+			{#each $errors._errors as error}
+				<Alert variant="destructive">
+					<AlertTitle>
+						{error}
+					</AlertTitle>
+				</Alert>
+			{/each}
+		</div>
+	{/if}
 
 	<Card>
 		<CardContent class="pt-6">
@@ -61,7 +84,13 @@
 						{/if}
 					</div>
 					<div class="pt-2.5">
-						<Button class="w-full">Sign In</Button>
+						<Button class="w-full">
+							{#if loading}
+								<LoaderIcon class="h-5 w-5 animate-spin" />
+							{:else}
+								Sign In
+							{/if}
+						</Button>
 					</div>
 				</div>
 			</form>

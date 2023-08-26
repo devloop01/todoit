@@ -21,9 +21,11 @@
 	},
 	"dependencies": {
 		"@fontsource-variable/inter": "^5.0.8",
+		"@lucia-auth/adapter-postgresql": "^2.0.0",
 		"class-variance-authority": "^0.7.0",
 		"clsx": "^2.0.0",
 		"drizzle-orm": "^0.28.2",
+		"lucia": "^2.4.0",
 		"lucide-svelte": "^0.265.0",
 		"pg": "^8.11.2",
 		"postgres": "^3.3.5",

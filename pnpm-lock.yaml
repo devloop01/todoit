@@ -8,6 +8,9 @@ dependencies:
   '@fontsource-variable/inter':
     specifier: ^5.0.8
     version: 5.0.8
+  '@lucia-auth/adapter-postgresql':
+    specifier: ^2.0.0
+    version: 2.0.0(lucia@2.4.0)(pg@8.11.2)(postgres@3.3.5)
   class-variance-authority:
     specifier: ^0.7.0
     version: 0.7.0
@@ -17,6 +20,9 @@ dependencies:
   drizzle-orm:
     specifier: ^0.28.2
     version: 0.28.2(pg@8.11.2)(postgres@3.3.5)
+  lucia:
+    specifier: ^2.4.0
+    version: 2.4.0
   lucide-svelte:
     specifier: ^0.265.0
     version: 0.265.0(svelte@4.2.0)
@@ -631,6 +637,23 @@ packages:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.1
       '@jridgewell/sourcemap-codec': 1.4.15
+
+  /@lucia-auth/adapter-postgresql@2.0.0(lucia@2.4.0)(pg@8.11.2)(postgres@3.3.5):
+    resolution: {integrity: sha512-1HUOjJPbCxvhFcHjjr6LypflBtGCS5fsXsK++SsyKn3bVj6Z6XwgxMhvLTJlvwXEQxGL1c9HJE81mIZHaHT4+w==}
+    peerDependencies:
+      lucia: ^2.0.0
+      pg: ^8.8.0
+      postgres: ^3.3.0
+    peerDependenciesMeta:
+      pg:
+        optional: true
+      postgres:
+        optional: true
+    dependencies:
+      lucia: 2.4.0
+      pg: 8.11.2
+      postgres: 3.3.5
+    dev: false
 
   /@nodelib/fs.scandir@2.1.5:
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -1958,6 +1981,10 @@ packages:
     dependencies:
       es5-ext: 0.10.62
     dev: true
+
+  /lucia@2.4.0:
+    resolution: {integrity: sha512-v2pyFQVF734+EU3m9GeeJQorFR7zLt7JoOJ1UD5ttR5Z+w4IkOyExiXyFe+zssKpony66u94wcxyws3lZSpzzg==}
+    dev: false
 
   /lucide-svelte@0.265.0(svelte@4.2.0):
     resolution: {integrity: sha512-rmIcnkvVxCA4xcxsUJ1AVSn3nuowdjgvK0wmdfBqNAaRmvCGqqPekpZMKBOlYLPzWLzwzGwG5A5J9nj9GH3TrQ==}
