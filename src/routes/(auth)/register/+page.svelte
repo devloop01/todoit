@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 
+	import { page } from '$app/stores';
 	import { superForm } from 'sveltekit-superforms/client';
 	// import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
 
@@ -14,6 +15,9 @@
 	import { Alert, AlertTitle } from '$components/ui/alert';
 
 	export let data: PageData;
+
+	let message: string;
+	$: message = $page.url.searchParams.get('message') ?? '';
 
 	let loading = false;
 
@@ -40,6 +44,14 @@
 	</div>
 
 	<div class="space-y-2">
+		{#if message}
+			<Alert variant="destructive">
+				<AlertTitle>
+					{message}
+				</AlertTitle>
+			</Alert>
+		{/if}
+
 		{#if $errors._errors}
 			<div class="space-y-2">
 				{#each $errors._errors as error}

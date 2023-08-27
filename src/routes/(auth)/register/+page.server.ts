@@ -12,7 +12,7 @@ export const load = (async () => {
 }) satisfies PageServerLoad;
 
 export const actions = {
-	default: async ({ request, locals }) => {
+	default: async ({ request, locals, url }) => {
 		let error = false;
 
 		const form = await superValidate(request, signUpSchema);
@@ -54,7 +54,9 @@ export const actions = {
 			return setError(form, '', 'Server error, please try again later.');
 		}
 
-		if (!error) throw redirect(302, '/');
+		const redirectTo = url.searchParams.get('redirectTo') ?? '/';
+
+		if (!error) throw redirect(302, `/${redirectTo.slice(1)}`);
 
 		return { form };
 	}
