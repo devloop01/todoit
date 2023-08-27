@@ -27,7 +27,6 @@
 
 	onMount(() => {
 		if (user) currentUser.set(user);
-		console.log(user);
 	});
 </script>
 
