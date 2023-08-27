@@ -8,10 +8,10 @@
 		<span class="font-inter text-2xl font-bold text-primary">todoit.</span>
 	</a>
 	{#if $currentUser === null}
-		<a href="/sign-in" class={buttonVariants()}>Sign In</a>
+		<a href="/login" class={buttonVariants()}>Login</a>
 	{:else}
 		<form method="POST" action="?/logout">
-			<button type="submit" class={buttonVariants({ variant: 'destructive' })}>Sign Out</button>
+			<button type="submit" class={buttonVariants({ variant: 'destructive' })}>Logout</button>
 		</form>
 	{/if}
 </header>

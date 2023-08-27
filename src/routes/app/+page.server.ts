@@ -3,9 +3,10 @@ import { fail, redirect } from '@sveltejs/kit';
 import { createTodo, getTodos, updateTodo, deleteTodo } from '$lib/server/db/handlers/todos';
 import { auth } from '$lib/server/lucia';
 
-export const load = (async () => {
+export const load = (async ({ locals }) => {
 	return {
-		todos: await getTodos()
+		todos: await getTodos(),
+		user: locals.user
 	};
 }) satisfies PageServerLoad;
 
@@ -69,7 +70,7 @@ export const actions = {
 		if (!session) return fail(401);
 		await auth.invalidateSession(session.sessionId);
 		locals.auth.setSession(null);
-		throw redirect(302, '/sign-in');
+		throw redirect(302, '/login');
 	}
 } satisfies Actions;
 

@@ -27,7 +27,7 @@
 </script>
 
 <svelte:head>
-	<title>todoit. — Sign In</title>
+	<title>todoit. — Login</title>
 </svelte:head>
 
 <div class="space-y-6">
@@ -88,7 +88,7 @@
 							{#if loading}
 								<LoaderIcon class="h-5 w-5 animate-spin" />
 							{:else}
-								Sign In
+								Login
 							{/if}
 						</Button>
 					</div>
@@ -98,7 +98,7 @@
 
 		<CardFooter>
 			<p class="leading-7 [&:not(:first-child)]:mt-6">
-				Don't have an account? <a href="/sign-up"
+				Don't have an account? <a href="/register"
 					><span class="font-medium text-primary">Sign Up</span></a
 				>
 			</p>
