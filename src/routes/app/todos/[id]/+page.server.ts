@@ -1,4 +1,4 @@
-import { getTodo } from '$lib/server/db/handlers/todos';
+import { getTodo } from '$lib/services/todos';
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
@@ -9,3 +9,4 @@ export const load = (async ({ params }) => {
 
 	return { todo };
 }) satisfies PageServerLoad;
+

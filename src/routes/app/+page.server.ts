@@ -1,6 +1,6 @@
 import type { PageServerLoad, Actions } from './$types';
 import { fail, redirect } from '@sveltejs/kit';
-import { createTodo, getTodos, updateTodo, deleteTodo } from '$lib/server/db/handlers/todos';
+import { createTodo, getTodos, updateTodo, deleteTodo } from '$lib/services/todos';
 import { auth } from '$lib/server/lucia';
 
 export const load = (async ({ locals }) => {
