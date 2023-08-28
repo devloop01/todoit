@@ -3,9 +3,16 @@ import type { NewTodo } from '$lib/types';
 import { desc, eq } from 'drizzle-orm';
 
 import { Schema, db } from '..';
+import { generateId } from '$lib/utils/id';
 
 const createTodo = async (text: string) => {
-	const [newTodo] = await db.insert(Schema.todos).values({ title: text }).returning();
+	const [newTodo] = await db
+		.insert(Schema.todos)
+		.values({
+			id: generateId(),
+			title: text
+		})
+		.returning();
 
 	return newTodo;
 };
