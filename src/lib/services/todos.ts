@@ -2,7 +2,7 @@ import type { NewTodo } from '$lib/types';
 
 import { desc, eq } from 'drizzle-orm';
 
-import { Schema, db } from '..';
+import { Schema, db } from '$lib/server/db';
 import { generateId } from '$lib/utils/id';
 
 const createTodo = async (text: string) => {
