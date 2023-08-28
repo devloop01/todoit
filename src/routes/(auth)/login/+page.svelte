@@ -39,7 +39,7 @@
 		<h3 class="scroll-m-20 font-inter text-4xl font-semibold tracking-tight lg:text-5xl">
 			Welcome back!
 		</h3>
-		<p class="pl-1 text-gray-600">write your todos</p>
+		<p class="pl-1 text-gray-600 dark:text-gray-300">write your todos</p>
 	</div>
 
 	<div class="space-y-2">
