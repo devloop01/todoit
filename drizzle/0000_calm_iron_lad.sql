@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS "user_sessions" (
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "todos" (
-	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"id" varchar(15) PRIMARY KEY NOT NULL,
 	"title" varchar(50) NOT NULL,
 	"description" varchar(255),
 	"completed" boolean DEFAULT false NOT NULL,

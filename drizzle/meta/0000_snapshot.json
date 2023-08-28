@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "pg",
-  "id": "f728999f-9f14-4006-99c0-7f25f37f0075",
+  "id": "f3aaff36-19a8-4748-ac01-9537dcbb9567",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "user_keys": {
@@ -100,10 +100,9 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "uuid",
+          "type": "varchar(15)",
           "primaryKey": true,
-          "notNull": true,
-          "default": "gen_random_uuid()"
+          "notNull": true
         },
         "title": {
           "name": "title",

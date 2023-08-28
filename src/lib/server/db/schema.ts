@@ -1,7 +1,7 @@
-import { pgTable, boolean, varchar, timestamp, uuid, bigint } from 'drizzle-orm/pg-core';
+import { pgTable, boolean, varchar, timestamp, bigint } from 'drizzle-orm/pg-core';
 
 export const todos = pgTable('todos', {
-	id: uuid('id').defaultRandom().primaryKey(),
+	id: varchar('id', { length: 15 }).primaryKey(),
 	title: varchar('title', { length: 50 }).notNull(),
 	description: varchar('description', { length: 255 }),
 	completed: boolean('completed').notNull().default(false),
