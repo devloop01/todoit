@@ -12,7 +12,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const handleRedirect = (url: URL, message?: string) => {
-	message = message ?? 'You must be logged in to view that page.';
+	message = message ?? 'You must be logged in to view that page';
 
 	const searchParams = new URLSearchParams(url.search);
 	searchParams.append('redirectTo', url.pathname);
