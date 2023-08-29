@@ -3,6 +3,8 @@ import { fail, redirect } from '@sveltejs/kit';
 import { setError, superValidate } from 'sveltekit-superforms/server';
 import { signUpSchema } from '$lib/schema/auth';
 import { auth } from '$lib/server/lucia';
+import { sendEmailVerificationLink } from '$lib/server/email';
+import { generateEmailVerificationToken } from '$lib/server/token';
 import postgres from 'postgres';
 
 export const load = (async () => {
@@ -45,6 +47,8 @@ export const actions = {
 				attributes: {}
 			});
 			locals.auth.setSession(session);
+			const token = await generateEmailVerificationToken(user.userId);
+			await sendEmailVerificationLink(token);
 		} catch (e) {
 			error = true;
 			if (e instanceof postgres.PostgresError && e.code === '23505') {
