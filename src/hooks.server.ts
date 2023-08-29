@@ -3,17 +3,22 @@ import { redirect, type Handle } from '@sveltejs/kit';
 import { auth } from '$lib/server/lucia';
 import { redirectToSignIn } from '$lib/utils/redirect';
 
+const authPattern = /\/\(auth\)/;
+const protectedPattern = /\/\(protected\)/;
+
 export const handle: Handle = async ({ event, resolve }) => {
 	event.locals.auth = auth.handleRequest(event);
 
 	const session = await event.locals.auth.validate();
 
+	const routeId = event.route.id || '';
+
 	if (session) {
-		if (event.route.id?.startsWith('/(auth)')) {
+		if (authPattern.test(routeId)) {
 			throw redirect(302, '/app');
 		}
 	} else {
-		if (event.route.id?.startsWith('/(protected)')) {
+		if (protectedPattern.test(routeId)) {
 			throw redirect(302, redirectToSignIn({ url: event.url, error: 'auth_required' }));
 		}
 	}
