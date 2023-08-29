@@ -1,7 +1,7 @@
 import { redirect, type Handle } from '@sveltejs/kit';
 
 import { auth } from '$lib/server/lucia';
-import { handleRedirect } from '$lib/utils';
+import { redirectToSignIn } from '$lib/utils/redirect';
 
 export const handle: Handle = async ({ event, resolve }) => {
 	event.locals.auth = auth.handleRequest(event);
@@ -16,7 +16,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 	if (event.url.pathname.startsWith('/app')) {
 		if (!session?.user) {
-			throw redirect(302, handleRedirect(event.url).login);
+			throw redirect(302, redirectToSignIn({ url: event.url }));
 		}
 	}
 
