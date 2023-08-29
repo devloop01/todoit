@@ -12,7 +12,7 @@
 </script>
 
 <div class="mx-auto max-w-screen-md bg-background">
-	<div class="relative flex h-screen flex-col flex-wrap justify-between">
+	<div class="relative flex h-screen flex-col">
 		<Header />
 
 		<slot />

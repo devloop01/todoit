@@ -10,28 +10,34 @@
 	export let form: ActionData;
 </script>
 
-<div class="space-y-2">
-	<Card>
-		<CardHeader>
-			<h2
-				class="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0"
-			>
-				Confirm your email
-			</h2>
-		</CardHeader>
-		<CardContent>
-			<p>Email verification link was sent to your inbox (i.e. console).</p>
-		</CardContent>
-		<CardFooter>
-			<form method="post" use:enhance>
-				<Button>Resend verification link</Button>
-			</form>
-		</CardFooter>
-	</Card>
+<svelte:head>
+	<title>Confirm email — todoit</title>
+</svelte:head>
 
-	{#if form?.success}
-		<Alert variant="success">
-			<AlertTitle>Your verification link was resent</AlertTitle>
-		</Alert>
-	{/if}
-</div>
+<main class="flex flex-1 flex-col justify-center px-4">
+	<div class="space-y-2">
+		<Card>
+			<CardHeader>
+				<h2
+					class="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0"
+				>
+					Confirm your email
+				</h2>
+			</CardHeader>
+			<CardContent>
+				<p>Email verification link was sent to your inbox (i.e. console).</p>
+			</CardContent>
+			<CardFooter>
+				<form method="post" use:enhance>
+					<Button>Resend verification link</Button>
+				</form>
+			</CardFooter>
+		</Card>
+
+		{#if form?.success}
+			<Alert variant="success">
+				<AlertTitle>Your verification link was resent</AlertTitle>
+			</Alert>
+		{/if}
+	</div>
+</main>
