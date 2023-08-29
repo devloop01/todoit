@@ -12,6 +12,10 @@
 	export let form: ActionData;
 </script>
 
+<svelte:head>
+	<title>Forgot Password — todoit</title>
+</svelte:head>
+
 <div class="space-y-2">
 	<Card class="min-w-[300px]">
 		<CardHeader>

@@ -3,6 +3,10 @@
 	import { Card, CardContent, CardHeader } from '$components/ui/card';
 </script>
 
+<svelte:head>
+	<title>todoit. — make your todos</title>
+</svelte:head>
+
 <main class="mx-auto flex h-screen max-w-md items-center px-4">
 	<Card class="w-full">
 		<CardHeader class="flex-row items-center justify-between border-b py-3">
