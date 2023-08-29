@@ -3,10 +3,10 @@
 	import { getErrorMessage, type Errors } from '$lib/utils/errors';
 	import { Alert, AlertTitle } from '$components/ui/alert';
 
-	let errorCode: Errors;
-	let errorMessage: string | undefined;
+	let errorCode: Errors | null;
+	let errorMessage: string | null;
 	$: {
-		errorCode = ($page.url.searchParams.get('error') as Errors | null) ?? 'unknown';
+		errorCode = $page.url.searchParams.get('error') as Errors | null;
 		errorMessage = getErrorMessage(errorCode);
 	}
 </script>
