@@ -37,3 +37,19 @@ export const keys = pgTable('user_keys', {
 	hashed_password: varchar('hashed_password', { length: 255 })
 });
 
+export const verificationTokens = pgTable('email_verification_tokens', {
+	id: varchar('id', { length: 63 }).primaryKey(),
+	user_id: varchar('user_id', { length: 15 })
+		.notNull()
+		.references(() => users.id),
+	expires: bigint('expires', { mode: 'number' }).notNull()
+});
+
+export const passwordResetTokens = pgTable('password_reset_tokens', {
+	id: varchar('id', { length: 63 }).primaryKey(),
+	user_id: varchar('user_id', { length: 15 })
+		.notNull()
+		.references(() => users.id),
+	expires: bigint('expires', { mode: 'number' }).notNull()
+});
+
