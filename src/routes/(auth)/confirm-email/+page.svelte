@@ -16,11 +16,11 @@
 			<h2
 				class="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0"
 			>
-				Email verification
+				Confirm your email
 			</h2>
 		</CardHeader>
 		<CardContent>
-			<p>Your email verification link was sent to your inbox (i.e. console).</p>
+			<p>Email verification link was sent to your inbox (i.e. console).</p>
 		</CardContent>
 		<CardFooter>
 			<form method="post" use:enhance>

@@ -8,7 +8,7 @@ export const load: PageServerLoad = async ({ params }) => {
 	const { token } = params;
 	const validToken = await isValidPasswordResetToken(token);
 	if (!validToken) {
-		throw redirect(302, '/password-reset');
+		throw redirect(302, '/reset-password');
 	}
 	return {};
 };

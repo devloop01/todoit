@@ -1,10 +1,10 @@
 export const sendEmailVerificationLink = async (token: string) => {
-	const url = `http://localhost:5173/email-verification/${token}`;
+	const url = `http://localhost:5173/confirm-email/${token}`;
 	console.log(`Your email verification link: ${url}`);
 };
 
 export const sendPasswordResetLink = async (token: string) => {
-	const url = `http://localhost:5173/password-reset/${token}`;
+	const url = `http://localhost:5173/reset-password/${token}`;
 	console.log(`Your password reset link: ${url}`);
 };
 
@@ -14,3 +14,4 @@ export const isValidEmail = (maybeEmail: unknown): maybeEmail is string => {
 	const emailRegexp = /^.+@.+$/; // [one or more character]@[one or more character]
 	return emailRegexp.test(maybeEmail);
 };
+
