@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import { currentUser, theme } from '$lib/store';
-	import { loadTheme, toggleTheme } from '$lib/utils';
+	import { loadTheme, toggleTheme } from '$lib/utils/theme';
 
 	import { MoonIcon, SunIcon } from 'lucide-svelte';
 	import { buttonVariants } from './ui/button';
