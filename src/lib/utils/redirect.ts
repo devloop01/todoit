@@ -1,11 +1,11 @@
+import type { Errors } from './errors';
+
 const createRedirect =
 	(redirectUrl: string) =>
-	({ url, message }: { url: URL; message?: string }) => {
-		message = message ?? 'You must be logged in to view that page';
-
+	({ url, error = 'unknown' }: { url: URL; error?: Errors }) => {
 		const searchParams = new URLSearchParams(url.search);
 		searchParams.append('redirectTo', url.pathname);
-		searchParams.append('message', message);
+		searchParams.append('error', error);
 
 		const queryString = searchParams.toString();
 
