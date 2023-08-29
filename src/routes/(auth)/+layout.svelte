@@ -9,7 +9,7 @@
 			</a>
 		</header>
 
-		<div class="flex max-w-2xl flex-1 flex-col justify-center px-4 py-8">
+		<div class="mx-auto flex max-w-2xl flex-1 flex-col justify-center px-4 py-8">
 			<slot />
 		</div>
 	</div>
