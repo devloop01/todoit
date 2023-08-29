@@ -14,6 +14,7 @@ export const load = (async () => {
 	return { form };
 }) satisfies PageServerLoad;
 
+// TODO: Secure the payload when it sends formdata. Password is revealed in network tab
 export const actions = {
 	default: async ({ request, locals, url }) => {
 		const form = await superValidate(request, signInSchema);

@@ -1,19 +1,23 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 
+	import { page } from '$app/stores';
 	import { superForm } from 'sveltekit-superforms/client';
 	// import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
 
 	import { LoaderIcon } from 'lucide-svelte';
+
 	import { Button } from '$components/ui/button';
 	import { Input } from '$components/ui/input';
 	import { PasswordInput } from '$components/ui/password-input';
 	import { Label } from '$components/ui/label';
 	import { Card, CardContent, CardFooter } from '$components/ui/card';
 	import { Alert, AlertTitle } from '$components/ui/alert';
-	import PageError from '$components/error.svelte';
 
 	export let data: PageData;
+
+	let message: string;
+	$: message = $page.url.searchParams.get('message') ?? '';
 
 	let loading = false;
 
@@ -28,19 +32,25 @@
 </script>
 
 <svelte:head>
-	<title>todoit. — Login</title>
+	<title>todoit. — Register Account</title>
 </svelte:head>
 
 <div class="space-y-6">
-	<div>
+	<div class="">
 		<h3 class="scroll-m-20 font-inter text-4xl font-semibold tracking-tight lg:text-5xl">
-			Welcome back!
+			Hello User!
 		</h3>
-		<p class="pl-1 text-foreground/70">write your todos</p>
+		<p class="pl-1 text-foreground/70">create your account</p>
 	</div>
 
 	<div class="space-y-2">
-		<PageError />
+		{#if message}
+			<Alert variant="destructive">
+				<AlertTitle>
+					{message}
+				</AlertTitle>
+			</Alert>
+		{/if}
 
 		{#if $errors._errors}
 			<div class="space-y-2">
@@ -54,10 +64,25 @@
 			</div>
 		{/if}
 
-		<Card>
+		<Card class="">
 			<CardContent class="pt-6">
 				<form method="POST" use:enhance>
 					<div class="space-y-2.5">
+						<div class="space-y-1.5">
+							<Label for="name" class="font-medium">Name</Label>
+							<Input
+								type="text"
+								name="name"
+								id="name"
+								placeholder="Your name"
+								bind:value={$form.name}
+								error={!!$errors.name}
+								{...$constraints.name}
+							/>
+							{#if $errors.name}
+								<small class="text-xs text-red-500">{$errors.name[0]}</small>
+							{/if}
+						</div>
 						<div class="space-y-1.5">
 							<Label for="email" class="font-medium">Email</Label>
 							<Input
@@ -87,12 +112,26 @@
 								<small class="text-xs text-red-500">{$errors.password[0]}</small>
 							{/if}
 						</div>
+						<div class="space-y-1.5">
+							<Label for="confirmPassword" class="font-medium">Conform Password</Label>
+							<PasswordInput
+								name="confirmPassword"
+								id="confirmPassword"
+								placeholder="Re-enter password"
+								bind:value={$form.confirmPassword}
+								error={!!$errors.confirmPassword}
+								{...$constraints.confirmPassword}
+							/>
+							{#if $errors.confirmPassword}
+								<small class="text-xs text-red-500">{$errors.confirmPassword[0]}</small>
+							{/if}
+						</div>
 						<div class="pt-2.5">
-							<Button class="w-full">
+							<Button class="w-full" disabled={loading}>
 								{#if loading}
 									<LoaderIcon class="h-5 w-5 animate-spin" />
 								{:else}
-									Login
+									Register
 								{/if}
 							</Button>
 						</div>
@@ -102,8 +141,8 @@
 
 			<CardFooter>
 				<p class="leading-7 [&:not(:first-child)]:mt-6">
-					Don't have an account? <a href="/register"
-						><span class="font-medium text-primary">Sign Up</span></a
+					Already have an account? <a href="/login"
+						><span class="font-medium text-primary">Sign In</span></a
 					>
 				</p>
 			</CardFooter>
