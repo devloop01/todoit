@@ -3,7 +3,7 @@
 	import { currentUser, theme } from '$lib/store';
 	import { loadTheme, toggleTheme } from '$lib/utils/theme';
 
-	import { MoonIcon, SunIcon } from 'lucide-svelte';
+	import { LogOutIcon, MoonIcon, SunIcon } from 'lucide-svelte';
 	import { buttonVariants } from './ui/button';
 	import { Button } from './ui/button';
 
@@ -28,7 +28,9 @@
 			<a href="/login" class={buttonVariants()}>Login</a>
 		{:else}
 			<form method="POST" action="?/logout">
-				<button type="submit" class={buttonVariants({ variant: 'destructive' })}>Logout</button>
+				<button type="submit" class={buttonVariants({ variant: 'ghost', size: 'icon' })}>
+					<LogOutIcon size="16" />
+				</button>
 			</form>
 		{/if}
 	</div>
