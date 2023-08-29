@@ -16,8 +16,6 @@ export const load = (async () => {
 
 export const actions = {
 	default: async ({ request, locals, url }) => {
-		let error = false;
-
 		const form = await superValidate(request, signInSchema);
 
 		if (!form.valid) {
@@ -26,6 +24,7 @@ export const actions = {
 
 		const { email, password } = form.data;
 
+		let error = false;
 		try {
 			const key = await auth.useKey('email', email.toLowerCase(), password);
 			const session = await auth.createSession({

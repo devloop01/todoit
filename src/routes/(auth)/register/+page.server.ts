@@ -13,8 +13,6 @@ export const load = (async () => {
 
 export const actions = {
 	default: async ({ request, locals, url }) => {
-		let error = false;
-
 		const form = await superValidate(request, signUpSchema);
 
 		if (!form.valid) {
@@ -27,6 +25,7 @@ export const actions = {
 			return setError(form, 'confirmPassword', 'Passwords must match');
 		}
 
+		let error = false;
 		try {
 			const user = await auth.createUser({
 				key: {

@@ -3,10 +3,9 @@ import { fail, redirect } from '@sveltejs/kit';
 import { createTodo, getTodos, updateTodo, deleteTodo } from '$lib/services/todos';
 import { auth } from '$lib/server/lucia';
 
-export const load = (async ({ locals }) => {
+export const load = (async () => {
 	return {
-		todos: await getTodos(),
-		user: locals.user
+		todos: await getTodos()
 	};
 }) satisfies PageServerLoad;
 

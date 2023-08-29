@@ -3,8 +3,6 @@
 	import type { TodoFilter } from '$lib/types';
 
 	import { enhance } from '$app/forms';
-	import { currentUser } from '$lib/store';
-	import { onMount } from 'svelte';
 
 	import { TodoList } from '$components/todo';
 	import { Button } from '$components/ui/button';
@@ -21,12 +19,6 @@
 	$: filteredTodos = todos.filter((todo) => {
 		if (filter === 'REMAINING') return !todo.completed;
 		if (filter === 'COMPLETED') return todo.completed;
-	});
-
-	$: user = data.user;
-
-	onMount(() => {
-		if (user) currentUser.set(user);
 	});
 </script>
 
