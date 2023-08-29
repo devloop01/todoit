@@ -6,8 +6,8 @@ export const errors = {
 	server: 'An error occurred on the server. Please try again later.'
 };
 
-export function getErrorMessage(error: Errors): string | undefined {
-	return errors[error];
+export function getErrorMessage(error: Errors | null) {
+	return error && errors[error];
 }
 
 export type Errors = keyof typeof errors;
