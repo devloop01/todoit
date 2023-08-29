@@ -7,7 +7,7 @@
 	import { Button } from '$components/ui/button';
 	import { Card, CardContent, CardFooter, CardHeader } from '$components/ui/card';
 	import { Label } from '$components/ui/label';
-	import { Input } from '$components/ui/input';
+	import { PasswordInput } from '$components/ui/password-input';
 
 	export let form: ActionData;
 </script>
@@ -25,11 +25,11 @@
 				<div class="space-y-4">
 					<div class="space-y-2">
 						<Label for="password" class="text-sm">Password</Label>
-						<Input type="password" name="password" id="password" placeholder="" />
+						<PasswordInput name="password" id="password" placeholder="" />
 					</div>
 					<div class="space-y-2">
 						<Label for="confirmPassword" class="text-sm">Confirm password</Label>
-						<Input type="password" name="confirmPassword" id="confirmPassword" placeholder="" />
+						<PasswordInput name="confirmPassword" id="confirmPassword" placeholder="" />
 					</div>
 					<Button class="w-full">Reset Password</Button>
 				</div>
