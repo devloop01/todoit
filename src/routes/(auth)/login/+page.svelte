@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 
-	import { page } from '$app/stores';
 	import { superForm } from 'sveltekit-superforms/client';
 	// import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
 
@@ -12,11 +11,9 @@
 	import { Label } from '$components/ui/label';
 	import { Card, CardContent, CardFooter } from '$components/ui/card';
 	import { Alert, AlertTitle } from '$components/ui/alert';
+	import PageError from '$components/error.svelte';
 
 	export let data: PageData;
-
-	let message: string;
-	$: message = $page.url.searchParams.get('message') ?? '';
 
 	let loading = false;
 
@@ -39,17 +36,11 @@
 		<h3 class="scroll-m-20 font-inter text-4xl font-semibold tracking-tight lg:text-5xl">
 			Welcome back!
 		</h3>
-		<p class="pl-1 text-gray-600 dark:text-gray-300">write your todos</p>
+		<p class="pl-1 text-foreground/70">write your todos</p>
 	</div>
 
 	<div class="space-y-2">
-		{#if message}
-			<Alert variant="destructive">
-				<AlertTitle>
-					{message}
-				</AlertTitle>
-			</Alert>
-		{/if}
+		<PageError />
 
 		{#if $errors._errors}
 			<div class="space-y-2">
