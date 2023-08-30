@@ -27,7 +27,7 @@
 		{#if $currentUser === null}
 			<a href="/login" class={buttonVariants()}>Login</a>
 		{:else}
-			<form method="POST" action="?/logout">
+			<form method="POST" action="/?/logout">
 				<button type="submit" class={buttonVariants({ variant: 'ghost', size: 'icon' })}>
 					<LogOutIcon size="16" />
 				</button>
