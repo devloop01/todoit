@@ -13,6 +13,7 @@
 	import { Label } from '$components/ui/label';
 	import { Card, CardContent, CardFooter } from '$components/ui/card';
 	import { Alert, AlertTitle } from '$components/ui/alert';
+	import { Text } from '$components/typography';
 
 	export let data: PageData;
 
@@ -140,11 +141,9 @@
 			</CardContent>
 
 			<CardFooter>
-				<p class="leading-7 [&:not(:first-child)]:mt-6">
-					Already have an account? <a href="/login"
-						><span class="font-medium text-primary">Sign In</span></a
-					>
-				</p>
+				<Text>
+					Already have an account? <a href="/login" class="font-medium text-primary">Sign in</a>
+				</Text>
 			</CardFooter>
 		</Card>
 	</div>

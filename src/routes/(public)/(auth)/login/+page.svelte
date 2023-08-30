@@ -12,6 +12,7 @@
 	import { Card, CardContent, CardFooter } from '$components/ui/card';
 	import { Alert, AlertTitle } from '$components/ui/alert';
 	import PageError from '$components/page-error.svelte';
+	import { Text } from '$components/typography';
 
 	export let data: PageData;
 
@@ -101,11 +102,9 @@
 			</CardContent>
 
 			<CardFooter>
-				<p class="leading-7 [&:not(:first-child)]:mt-6">
-					Don't have an account? <a href="/register"
-						><span class="font-medium text-primary">Sign Up</span></a
-					>
-				</p>
+				<Text>
+					Don't have an account? <a href="/register" class="font-medium text-primary">Sign up</a>
+				</Text>
 			</CardFooter>
 		</Card>
 	</div>
