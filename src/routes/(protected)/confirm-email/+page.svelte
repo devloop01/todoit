@@ -2,6 +2,7 @@
 	import type { ActionData } from './$types';
 
 	import { enhance } from '$app/forms';
+	import { currentUser } from '$lib/store';
 
 	import { Alert, AlertTitle } from '$components/ui/alert';
 	import { Button } from '$components/ui/button';
@@ -14,25 +15,43 @@
 	<title>Confirm email — todoit</title>
 </svelte:head>
 
-<main class="flex flex-1 flex-col justify-center px-4">
+<main class="px-4 pt-8">
 	<div class="space-y-2">
-		<Card>
-			<CardHeader>
-				<h2
-					class="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0"
-				>
-					Confirm your email
-				</h2>
-			</CardHeader>
-			<CardContent>
-				<p>Email verification link was sent to your inbox (i.e. console).</p>
-			</CardContent>
-			<CardFooter>
-				<form method="post" use:enhance>
-					<Button>Resend verification link</Button>
-				</form>
-			</CardFooter>
-		</Card>
+		{#if $currentUser?.email_verified}
+			<Card>
+				<CardHeader>
+					<h2
+						class="scroll-m-20 text-3xl font-semibold tracking-tight transition-colors first:mt-0"
+					>
+						Email verified
+					</h2>
+				</CardHeader>
+				<CardContent>
+					<p>Your email has been verified</p>
+				</CardContent>
+				<CardFooter>
+					<a href="/app" class="text-sm text-primary hover:underline">← Back to app</a>
+				</CardFooter>
+			</Card>
+		{:else}
+			<Card>
+				<CardHeader>
+					<h2
+						class="scroll-m-20 text-3xl font-semibold tracking-tight transition-colors first:mt-0"
+					>
+						Confirm your email
+					</h2>
+				</CardHeader>
+				<CardContent>
+					<p>Email verification link was sent to your inbox (i.e. console).</p>
+				</CardContent>
+				<CardFooter>
+					<form method="post" use:enhance>
+						<Button>Resend verification link</Button>
+					</form>
+				</CardFooter>
+			</Card>
+		{/if}
 
 		{#if form?.success}
 			<Alert variant="success">

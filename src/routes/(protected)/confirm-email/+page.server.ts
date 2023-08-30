@@ -4,12 +4,7 @@ import { sendEmailVerificationLink } from '$lib/server/email';
 
 import type { PageServerLoad, Actions } from './$types';
 
-export const load: PageServerLoad = async ({ locals }) => {
-	const session = await locals.auth.validate();
-	if (!session) throw redirect(302, '/login');
-	if (session.user.email_verified) {
-		throw redirect(302, '/');
-	}
+export const load: PageServerLoad = async () => {
 	return {};
 };
 

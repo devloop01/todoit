@@ -3,7 +3,7 @@
 
 <div class="mx-auto max-w-screen-md">
 	<div class="flex h-screen flex-col">
-		<header class="p-4">
+		<header class="border-b p-4">
 			<a href="/">
 				<span class="font-inter text-2xl font-bold text-primary">todoit.</span>
 			</a>
