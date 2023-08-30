@@ -1,14 +1,14 @@
 import { auth } from '$lib/server/lucia';
-import { fail, redirect } from '@sveltejs/kit';
+import { error, fail, redirect } from '@sveltejs/kit';
 import { isValidPasswordResetToken, validatePasswordResetToken } from '$lib/server/token';
 
 import type { PageServerLoad, Actions } from './$types';
 
 export const load: PageServerLoad = async ({ params }) => {
 	const { token } = params;
-	const validToken = await isValidPasswordResetToken(token);
-	if (!validToken) {
-		throw redirect(302, '/forgot-password');
+	const isValidToken = await isValidPasswordResetToken(token);
+	if (!isValidToken) {
+		throw error(400, 'Invalid or expired password reset token');
 	}
 	return {};
 };
