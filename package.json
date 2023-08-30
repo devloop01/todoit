@@ -21,6 +21,7 @@
 	},
 	"dependencies": {
 		"@fontsource-variable/inter": "^5.0.8",
+		"@fontsource-variable/open-sans": "^5.0.9",
 		"@lucia-auth/adapter-postgresql": "^2.0.1",
 		"class-variance-authority": "^0.7.0",
 		"clsx": "^2.0.0",

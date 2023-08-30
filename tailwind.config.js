@@ -56,10 +56,11 @@ module.exports = {
 			},
 			fontFamily: {
 				sans: [...fontFamily.sans],
-
-				inter: ['Inter Variable', ...fontFamily.sans]
+				inter: ['Inter Variable', ...fontFamily.sans],
+				'open-sans': ['Open Sans Variable', ...fontFamily.sans]
 			}
 		}
 	},
 	plugins: [require('tailwindcss-animate')]
 };
+
