@@ -9,7 +9,7 @@
 			</a>
 		</header>
 
-		<div class="flex flex-1 flex-col justify-center px-4 py-8">
+		<div class="flex flex-1 flex-col px-4 py-8">
 			<slot />
 		</div>
 	</div>
