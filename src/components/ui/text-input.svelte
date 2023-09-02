@@ -3,12 +3,8 @@
 
 	import { generateId } from '$lib/utils/id';
 
-	import { EyeIcon, EyeOffIcon } from 'lucide-svelte';
-	import { Button } from '$components/ui/button';
 	import { Input } from '$components/ui/input';
 	import { Label } from '$components/ui/label';
-
-	let reveal = false;
 
 	if (!$$restProps.id) $$restProps.id = generateId();
 
@@ -27,30 +23,7 @@
 	{#if label}
 		<Label for={$$restProps.id} class="text-sm font-medium">{label}</Label>
 	{/if}
-	<div class="relative flex items-center">
-		<Input
-			class="pr-8"
-			bind:value
-			error={!!error}
-			{...$$restProps}
-			type={reveal ? 'text' : 'password'}
-		/>
-		<Button
-			type="button"
-			size="icon"
-			variant="ghost"
-			class="absolute right-0.5 h-7 w-7 hover:bg-foreground/20 active:scale-95"
-			tabindex={-1}
-			disabled={$$restProps.disabled}
-			on:click={() => (reveal = !reveal)}
-		>
-			{#if reveal}
-				<EyeIcon class="h-4 w-4" />
-			{:else}
-				<EyeOffIcon class="h-4 w-4" />
-			{/if}
-		</Button>
-	</div>
+	<Input bind:value error={!!error} type="text" {...$$restProps} />
 	{#if error}
 		<small class="text-xs text-destructive">{error}</small>
 	{/if}
