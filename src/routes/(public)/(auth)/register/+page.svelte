@@ -14,15 +14,17 @@
 	import { Card, CardContent, CardFooter } from '$components/ui/card';
 	import { Alert, AlertTitle } from '$components/ui/alert';
 	import { Text } from '$components/typography';
+	import PageError from '$components/page-error.svelte';
+	import { signUpSchema } from '$lib/schema/auth';
+	import TextInput from '$components/ui/text-input.svelte';
 
 	export let data: PageData;
 
-	let message: string;
-	$: message = $page.url.searchParams.get('message') ?? '';
-
 	let loading = false;
 
-	const { form, errors, enhance, constraints } = superForm(data.form, {
+	const { form, errors, enhance } = superForm(data.form, {
+		validators: signUpSchema,
+		autoFocusOnError: true,
 		onSubmit() {
 			loading = true;
 		},
@@ -45,13 +47,7 @@
 	</div>
 
 	<div class="space-y-2">
-		{#if message}
-			<Alert variant="destructive">
-				<AlertTitle>
-					{message}
-				</AlertTitle>
-			</Alert>
-		{/if}
+		<PageError />
 
 		{#if $errors._errors}
 			<div class="space-y-2">
@@ -69,64 +65,40 @@
 			<CardContent class="pt-6">
 				<form method="POST" use:enhance>
 					<div class="space-y-2.5">
-						<div class="space-y-1.5">
-							<Label for="name" class="font-medium">Name</Label>
-							<Input
-								type="text"
-								name="name"
-								id="name"
-								placeholder="Your name"
-								bind:value={$form.name}
-								error={!!$errors.name}
-								{...$constraints.name}
-							/>
-							{#if $errors.name}
-								<small class="text-xs text-red-500">{$errors.name[0]}</small>
-							{/if}
-						</div>
-						<div class="space-y-1.5">
-							<Label for="email" class="font-medium">Email</Label>
-							<Input
-								type="email"
-								name="email"
-								id="email"
-								placeholder="you@email.com"
-								bind:value={$form.email}
-								error={!!$errors.email}
-								{...$constraints.email}
-							/>
-							{#if $errors.email}
-								<small class="text-xs text-red-500">{$errors.email[0]}</small>
-							{/if}
-						</div>
-						<div class="space-y-1.5">
-							<Label for="password" class="font-medium">Password</Label>
-							<PasswordInput
-								name="password"
-								id="password"
-								placeholder="Your password"
-								bind:value={$form.password}
-								error={!!$errors.password}
-								{...$constraints.password}
-							/>
-							{#if $errors.password}
-								<small class="text-xs text-red-500">{$errors.password[0]}</small>
-							{/if}
-						</div>
-						<div class="space-y-1.5">
-							<Label for="confirmPassword" class="font-medium">Conform Password</Label>
-							<PasswordInput
-								name="confirmPassword"
-								id="confirmPassword"
-								placeholder="Re-enter password"
-								bind:value={$form.confirmPassword}
-								error={!!$errors.confirmPassword}
-								{...$constraints.confirmPassword}
-							/>
-							{#if $errors.confirmPassword}
-								<small class="text-xs text-red-500">{$errors.confirmPassword[0]}</small>
-							{/if}
-						</div>
+						<TextInput
+							label="Name"
+							name="name"
+							placeholder="Your name"
+							bind:value={$form.name}
+							error={$errors?.name?.[0]}
+							disabled={loading}
+						/>
+						<TextInput
+							label="Email"
+							type="email"
+							name="email"
+							placeholder="you@email.com"
+							bind:value={$form.email}
+							error={$errors?.email?.[0]}
+							disabled={loading}
+						/>
+
+						<PasswordInput
+							label="Password"
+							name="password"
+							placeholder="Your password"
+							bind:value={$form.password}
+							error={$errors?.password?.[0]}
+							disabled={loading}
+						/>
+						<PasswordInput
+							label="Confirm Password"
+							name="confirmPassword"
+							placeholder="Re-enter password"
+							bind:value={$form.confirmPassword}
+							error={$errors?.confirmPassword?.[0]}
+							disabled={loading}
+						/>
 						<div class="pt-2.5">
 							<Button class="w-full" disabled={loading}>
 								{#if loading}

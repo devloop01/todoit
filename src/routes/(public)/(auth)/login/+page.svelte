@@ -6,19 +6,21 @@
 
 	import { LoaderIcon } from 'lucide-svelte';
 	import { Button } from '$components/ui/button';
-	import { Input } from '$components/ui/input';
 	import { PasswordInput } from '$components/ui/password-input';
-	import { Label } from '$components/ui/label';
 	import { Card, CardContent, CardFooter } from '$components/ui/card';
 	import { Alert, AlertTitle } from '$components/ui/alert';
 	import PageError from '$components/page-error.svelte';
 	import { Text } from '$components/typography';
+	import { signInSchema } from '$lib/schema/auth';
+	import TextInput from '$components/ui/text-input.svelte';
 
 	export let data: PageData;
 
 	let loading = false;
 
-	const { form, errors, enhance, constraints } = superForm(data.form, {
+	const { form, errors, enhance } = superForm(data.form, {
+		validators: signInSchema,
+		autoFocusOnError: true,
 		onSubmit() {
 			loading = true;
 		},
@@ -59,35 +61,26 @@
 			<CardContent class="pt-6">
 				<form method="POST" use:enhance>
 					<div class="space-y-2.5">
-						<div class="space-y-1.5">
-							<Label for="email" class="font-medium">Email</Label>
-							<Input
-								type="email"
-								name="email"
-								id="email"
-								placeholder="you@email.com"
-								bind:value={$form.email}
-								error={!!$errors.email}
-								{...$constraints.email}
-							/>
-							{#if $errors.email}
-								<small class="text-xs text-red-500">{$errors.email[0]}</small>
-							{/if}
-						</div>
-						<div class="space-y-1.5">
-							<Label for="password" class="font-medium">Password</Label>
-							<PasswordInput
-								name="password"
-								id="password"
-								placeholder="Your password"
-								bind:value={$form.password}
-								error={!!$errors.password}
-								{...$constraints.password}
-							/>
-							{#if $errors.password}
-								<small class="text-xs text-red-500">{$errors.password[0]}</small>
-							{/if}
-						</div>
+						<TextInput
+							name="email"
+							label="Email"
+							id="email"
+							placeholder="you@email.com"
+							bind:value={$form.email}
+							error={$errors?.email?.[0]}
+							disabled={loading}
+						/>
+
+						<PasswordInput
+							name="password"
+							label="Password"
+							id="password"
+							placeholder="Your password"
+							bind:value={$form.password}
+							error={$errors?.password?.[0]}
+							disabled={loading}
+						/>
+
 						<div class="pt-2.5">
 							<Button class="w-full">
 								{#if loading}
