@@ -2,7 +2,8 @@
 	import type { PageData } from './$types';
 
 	import { superForm } from 'sveltekit-superforms/client';
-	// import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
+
+	import { signInSchema } from '$lib/schema/auth';
 
 	import { LoaderIcon } from 'lucide-svelte';
 	import { Button } from '$components/ui/button';
@@ -11,8 +12,7 @@
 	import { Alert, AlertTitle } from '$components/ui/alert';
 	import PageError from '$components/page-error.svelte';
 	import { Text } from '$components/typography';
-	import { signInSchema } from '$lib/schema/auth';
-	import TextInput from '$components/ui/text-input.svelte';
+	import { TextInput } from '$components/ui/text-input';
 
 	export let data: PageData;
 
@@ -101,6 +101,4 @@
 			</CardFooter>
 		</Card>
 	</div>
-
-	<!-- <SuperDebug data={$form} /> -->
 </div>

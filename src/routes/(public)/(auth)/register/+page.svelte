@@ -1,22 +1,17 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 
-	import { page } from '$app/stores';
 	import { superForm } from 'sveltekit-superforms/client';
-	// import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
+	import { signUpSchema } from '$lib/schema/auth';
 
 	import { LoaderIcon } from 'lucide-svelte';
-
 	import { Button } from '$components/ui/button';
-	import { Input } from '$components/ui/input';
 	import { PasswordInput } from '$components/ui/password-input';
-	import { Label } from '$components/ui/label';
 	import { Card, CardContent, CardFooter } from '$components/ui/card';
 	import { Alert, AlertTitle } from '$components/ui/alert';
 	import { Text } from '$components/typography';
 	import PageError from '$components/page-error.svelte';
-	import { signUpSchema } from '$lib/schema/auth';
-	import TextInput from '$components/ui/text-input.svelte';
+	import { TextInput } from '$components/ui/text-input';
 
 	export let data: PageData;
 
@@ -119,6 +114,4 @@
 			</CardFooter>
 		</Card>
 	</div>
-
-	<!-- <SuperDebug data={$form} /> -->
 </div>
