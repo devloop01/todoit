@@ -32,6 +32,18 @@
 			class="pr-8"
 			bind:value
 			error={!!error}
+			on:blur
+			on:change
+			on:click
+			on:focus
+			on:keydown
+			on:keypress
+			on:keyup
+			on:mouseover
+			on:mouseenter
+			on:mouseleave
+			on:paste
+			on:input
 			{...$$restProps}
 			type={reveal ? 'text' : 'password'}
 		/>

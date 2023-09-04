@@ -23,7 +23,24 @@
 	{#if label}
 		<Label for={$$restProps.id} class="text-sm font-medium">{label}</Label>
 	{/if}
-	<Input bind:value error={!!error} type="text" {...$$restProps} />
+	<Input
+		bind:value
+		error={!!error}
+		type="text"
+		on:blur
+		on:change
+		on:click
+		on:focus
+		on:keydown
+		on:keypress
+		on:keyup
+		on:mouseover
+		on:mouseenter
+		on:mouseleave
+		on:paste
+		on:input
+		{...$$restProps}
+	/>
 	{#if error}
 		<small class="text-xs text-destructive">{error}</small>
 	{/if}
