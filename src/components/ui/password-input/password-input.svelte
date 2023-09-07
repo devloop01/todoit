@@ -51,7 +51,7 @@
 			type="button"
 			size="icon"
 			variant="ghost"
-			class="absolute right-0.5 h-7 w-7 hover:bg-foreground/20 active:scale-95"
+			class="absolute right-1 h-7 w-7 hover:bg-foreground/5 active:scale-95"
 			tabindex={-1}
 			disabled={$$restProps.disabled}
 			on:click={() => (reveal = !reveal)}
