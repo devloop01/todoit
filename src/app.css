@@ -13,7 +13,7 @@
 		--card-foreground: 222.2 84% 4.9%;
 		--popover: 0 0% 100%;
 		--popover-foreground: 222.2 84% 4.9%;
-		--primary: 221.2 83.2% 53.3%;
+		--primary: 222 100% 57%;
 		--primary-foreground: 210 40% 98%;
 		--secondary: 210 40% 96.1%;
 		--secondary-foreground: 222.2 47.4% 11.2%;
@@ -23,9 +23,15 @@
 		--accent-foreground: 222.2 47.4% 11.2%;
 		--destructive: 0 96% 65%;
 		--destructive-foreground: 210 40% 98%;
+		--destructive-muted: 0 89% 96%;
+		--destructive-muted-foreground: 0 96% 65%;
+		--success: 142.1 76.2% 36.3%;
+		--success-foreground: 355.7 100% 97.3%;
+		--success-muted: 141 41% 93%;
+		--success-muted-foreground: 142.1 76.2% 36.3%;
 		--border: 214.3 31.8% 91.4%;
 		--input: 214.3 31.8% 91.4%;
-		--ring: 221.2 83.2% 53.3%;
+		--ring: 222 100% 57%;
 		--radius: 0.5rem;
 	}
 
@@ -46,6 +52,10 @@
 		--accent-foreground: 210 40% 98%;
 		--destructive: 357 74.8% 51.8%;
 		--destructive-foreground: 210 40% 98%;
+		--destructive-muted: 0 89% 96%;
+		--destructive-muted-foreground: 0 96% 65%;
+		--success: 142.1 70.6% 45.3%;
+		--success-foreground: 144.9 80.4% 10%;
 		--border: 217.2 32.6% 17.5%;
 		--input: 217.2 32.6% 17.5%;
 		--ring: 224.3 76.3% 48%;
@@ -57,7 +67,7 @@
 		@apply border-border;
 	}
 	body {
-		@apply font-open-sans bg-background text-foreground antialiased;
+		@apply bg-background font-open-sans text-foreground antialiased;
 		font-feature-settings:
 			'rlig' 1,
 			'calt' 1;

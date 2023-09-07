@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss';
+import plugin from 'tailwindcss/plugin';
 import { fontFamily } from 'tailwindcss/defaultTheme';
 
 export default {
@@ -29,7 +30,15 @@ export default {
 				},
 				destructive: {
 					DEFAULT: 'hsl(var(--destructive))',
-					foreground: 'hsl(var(--destructive-foreground))'
+					foreground: 'hsl(var(--destructive-foreground))',
+					muted: 'hsl(var(--destructive-muted))',
+					'muted-foreground': 'hsl(var(--destructive-muted-foreground))'
+				},
+				success: {
+					DEFAULT: 'hsl(var(--success))',
+					foreground: 'hsl(var(--success-foreground))',
+					muted: 'hsl(var(--success-muted))',
+					'muted-foreground': 'hsl(var(--success-muted-foreground))'
 				},
 				muted: {
 					DEFAULT: 'hsl(var(--muted))',
@@ -60,6 +69,21 @@ export default {
 			}
 		}
 	},
-	plugins: [require('tailwindcss-animate')]
+	plugins: [
+		require('tailwindcss-animate'),
+		plugin(function ({ addVariant, matchUtilities, theme }) {
+			addVariant('hocus', ['&:hover', '&:focus']);
+			// Square utility
+			matchUtilities(
+				{
+					square: (value) => ({
+						width: value,
+						height: value
+					})
+				},
+				{ values: theme('spacing') }
+			);
+		})
+	]
 } satisfies Config;
 
