@@ -1,31 +1,32 @@
 import type { Actions, PageServerLoad } from './$types';
 
-import { fail, redirect } from '@sveltejs/kit';
-
-import { setError, superValidate } from 'sveltekit-superforms/server';
+import { message, superValidate } from 'sveltekit-superforms/server';
+import { redirect } from 'sveltekit-flash-message/server';
 
 import { signInSchema } from '$lib/schema/auth';
 import { auth } from '$lib/server/lucia';
 import { LuciaError } from 'lucia';
+import type { FormMessage } from '$lib/types';
 
 export const load = (async () => {
-	const form = await superValidate(signInSchema);
-
+	const form = await superValidate<typeof signInSchema, FormMessage>(signInSchema);
 	return { form };
 }) satisfies PageServerLoad;
 
 // TODO: Secure the payload when it sends formdata. Password is revealed in network tab
 export const actions = {
-	default: async ({ request, locals, url }) => {
-		const form = await superValidate(request, signInSchema);
+	default: async (event) => {
+		const { request, locals, url } = event;
+
+		const form = await superValidate<typeof signInSchema, FormMessage>(request, signInSchema);
 
 		if (!form.valid) {
-			return fail(400, { form });
+			return message(form, { type: 'error', message: 'Invalid form!' });
 		}
 
 		const { email, password } = form.data;
 
-		let error = false;
+		let isError = false;
 		try {
 			const key = await auth.useKey('email', email.toLowerCase(), password);
 			const session = await auth.createSession({
@@ -34,21 +35,34 @@ export const actions = {
 			});
 			locals.auth.setSession(session);
 		} catch (e) {
-			error = true;
+			isError = true;
 			if (
 				e instanceof LuciaError &&
 				(e.message === 'AUTH_INVALID_KEY_ID' || e.message === 'AUTH_INVALID_PASSWORD')
 			) {
-				return setError(form, '', 'Incorrect email or password.');
+				return message(
+					form,
+					{ type: 'error', message: 'Incorrect email or password' },
+					{ status: 401 }
+				);
 			}
-			return setError(form, '', 'Server error, please try again later.');
+			return message(
+				form,
+				{ type: 'error', message: 'Server error, please try again later.' },
+				{ status: 500 }
+			);
 		}
 
 		const redirectTo = url.searchParams.get('redirectTo') ?? '/';
 
-		if (!error) throw redirect(302, `/${redirectTo.slice(1)}`);
+		if (!isError)
+			throw redirect(
+				`/${redirectTo.slice(1)}`,
+				{ type: 'success', message: 'Logged in successfully!' },
+				event
+			);
 
-		return { form };
+		return message(form, { type: 'success', message: 'Form submiitted' });
 	}
 } satisfies Actions;
 

@@ -1,24 +1,27 @@
 import type { Actions, PageServerLoad } from './$types';
-import { fail, redirect } from '@sveltejs/kit';
-import { setError, superValidate } from 'sveltekit-superforms/server';
+import { message, setError, superValidate } from 'sveltekit-superforms/server';
+import { redirect } from 'sveltekit-flash-message/server';
 import { signUpSchema } from '$lib/schema/auth';
 import { auth } from '$lib/server/lucia';
 import { sendEmailVerificationLink } from '$lib/server/email';
 import { generateEmailVerificationToken } from '$lib/server/token';
 import postgres from 'postgres';
+import type { FormMessage } from '$lib/types';
 
 export const load = (async () => {
-	const form = await superValidate(signUpSchema);
+	const form = await superValidate<typeof signUpSchema, FormMessage>(signUpSchema);
 
 	return { form };
 }) satisfies PageServerLoad;
 
 export const actions = {
-	default: async ({ request, locals, url }) => {
-		const form = await superValidate(request, signUpSchema);
+	default: async (event) => {
+		const { request, locals } = event;
+
+		const form = await superValidate<typeof signUpSchema, FormMessage>(request, signUpSchema);
 
 		if (!form.valid) {
-			return fail(400, { form });
+			return message(form, { type: 'error', message: 'Invalid form!' });
 		}
 
 		const { name, email, password, confirmPassword } = form.data;
@@ -27,7 +30,7 @@ export const actions = {
 			return setError(form, 'confirmPassword', 'Passwords must match');
 		}
 
-		let error = false;
+		let isError = false;
 		try {
 			const user = await auth.createUser({
 				key: {
@@ -42,26 +45,43 @@ export const actions = {
 					created_at: new Date().toISOString()
 				}
 			});
+
 			const session = await auth.createSession({
 				userId: user.userId,
 				attributes: {}
 			});
+
 			locals.auth.setSession(session);
+
+			// send email verification link
 			const token = await generateEmailVerificationToken(user.userId);
 			await sendEmailVerificationLink(token);
 		} catch (e) {
-			error = true;
+			isError = true;
+
 			if (e instanceof postgres.PostgresError && e.code === '23505') {
-				return setError(form, '', 'Email already in use.');
+				return setError(form, 'email', 'Email already in use.');
 			}
-			return setError(form, '', 'Server error, please try again later.');
+
+			return message(
+				form,
+				{ type: 'error', message: 'Server error, please try again later' },
+				{ status: 500 }
+			);
 		}
 
-		const redirectTo = url.searchParams.get('redirectTo') ?? '/';
+		// after successful registration, redirect to confirm email page
+		if (!isError)
+			throw redirect(
+				`/confirm-email`,
+				{ type: 'success', message: 'Registered successfully' },
+				event
+			);
 
-		if (!error) throw redirect(302, `/${redirectTo.slice(1)}`);
-
-		return { form };
+		return message(form, {
+			type: 'success',
+			message: 'Form submitted successfully!'
+		});
 	}
 } satisfies Actions;
 

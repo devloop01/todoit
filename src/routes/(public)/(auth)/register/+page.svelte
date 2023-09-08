@@ -8,23 +8,21 @@
 	import { Button } from '$components/ui/button';
 	import { PasswordInput } from '$components/ui/password-input';
 	import { Card, CardContent, CardFooter } from '$components/ui/card';
-	import { Alert, AlertTitle } from '$components/ui/alert';
 	import { Text } from '$components/typography';
 	import PageError from '$components/page-error.svelte';
 	import { TextInput } from '$components/ui/text-input';
+	import { toast } from '$components/ui/toast';
 
 	export let data: PageData;
 
-	let loading = false;
-
-	const { form, errors, enhance } = superForm(data.form, {
+	const { form, errors, enhance, submitting } = superForm(data.form, {
 		validators: signUpSchema,
 		autoFocusOnError: true,
-		onSubmit() {
-			loading = true;
-		},
-		onResult() {
-			loading = false;
+
+		onUpdated({ form }) {
+			if (form.message) {
+				if (form.message.type === 'error') toast.error(form.message.message);
+			}
 		}
 	});
 </script>
@@ -44,18 +42,6 @@
 	<div class="space-y-2">
 		<PageError />
 
-		{#if $errors._errors}
-			<div class="space-y-2">
-				{#each $errors._errors as error}
-					<Alert variant="destructive">
-						<AlertTitle>
-							{error}
-						</AlertTitle>
-					</Alert>
-				{/each}
-			</div>
-		{/if}
-
 		<Card class="">
 			<CardContent class="pt-6">
 				<form method="POST" use:enhance>
@@ -66,7 +52,7 @@
 							placeholder="Your name"
 							bind:value={$form.name}
 							error={$errors?.name?.[0]}
-							disabled={loading}
+							disabled={$submitting}
 						/>
 						<TextInput
 							label="Email"
@@ -75,7 +61,7 @@
 							placeholder="you@email.com"
 							bind:value={$form.email}
 							error={$errors?.email?.[0]}
-							disabled={loading}
+							disabled={$submitting}
 						/>
 
 						<PasswordInput
@@ -84,7 +70,7 @@
 							placeholder="Your password"
 							bind:value={$form.password}
 							error={$errors?.password?.[0]}
-							disabled={loading}
+							disabled={$submitting}
 						/>
 						<PasswordInput
 							label="Confirm Password"
@@ -92,11 +78,11 @@
 							placeholder="Re-enter password"
 							bind:value={$form.confirmPassword}
 							error={$errors?.confirmPassword?.[0]}
-							disabled={loading}
+							disabled={$submitting}
 						/>
 						<div class="pt-2.5">
-							<Button class="w-full" disabled={loading}>
-								{#if loading}
+							<Button class="w-full" disabled={$submitting}>
+								{#if $submitting}
 									<LoaderIcon class="h-5 w-5 animate-spin" />
 								{:else}
 									Register
