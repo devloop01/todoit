@@ -1,15 +1,21 @@
 <script lang="ts">
-	import type { ActionData } from './$types';
-
-	import { enhance } from '$app/forms';
-
-	import { Alert, AlertTitle } from '$components/ui/alert';
 	import { Button } from '$components/ui/button';
 	import { Card, CardContent, CardFooter, CardHeader } from '$components/ui/card';
-	import { Label } from '$components/ui/label';
-	import { Input } from '$components/ui/input';
+	import { TextInput } from '$components/ui/text-input';
+	import { toast } from '$components/ui/toast/toaster.svelte';
+	import { superForm } from 'sveltekit-superforms/client';
 
-	export let form: ActionData;
+	export let data;
+
+	const { form, errors, enhance, submitting, constraints } = superForm(data.form, {
+		onUpdated({ form }) {
+			if (form.message?.type === 'success') toast.success(form.message.message);
+			if (form.message?.type === 'error') toast.error(form.message.message);
+		},
+		onError(event) {
+			console.log(event);
+		}
+	});
 </script>
 
 <svelte:head>
@@ -28,12 +34,19 @@
 		</CardHeader>
 		<CardContent>
 			<form method="post" use:enhance>
-				<div class="space-y-6">
-					<div class="space-y-2">
-						<Label for="email" class="text-sm">Email</Label>
-						<Input type="email" name="email" id="email" placeholder="Enter your email" />
-					</div>
-					<Button class="w-full">Reset Password</Button>
+				<div class="space-y-4">
+					<TextInput
+						label="Email"
+						type="email"
+						name="email"
+						placeholder="Enter your email"
+						bind:value={$form.email}
+						error={$errors.email?.[0]}
+						disabled={$submitting}
+						id="email"
+						{...$constraints.email}
+					/>
+					<Button class="w-full" loading={$submitting}>Reset Password</Button>
 				</div>
 			</form>
 		</CardContent>
@@ -43,15 +56,4 @@
 			</div>
 		</CardFooter>
 	</Card>
-
-	{#if form?.success}
-		<Alert variant="success">
-			<AlertTitle>Your password reset link was sent to your inbox</AlertTitle>
-		</Alert>
-	{/if}
-	{#if form?.message}
-		<Alert variant="destructive">
-			<AlertTitle>{form.message}</AlertTitle>
-		</Alert>
-	{/if}
 </div>

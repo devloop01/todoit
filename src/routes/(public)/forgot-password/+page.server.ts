@@ -1,42 +1,54 @@
+import type { Actions, PageServerLoad } from './$types';
+
+import { eq } from 'drizzle-orm';
+import { message, setError, superValidate } from 'sveltekit-superforms/server';
+
 import { auth } from '$lib/server/lucia';
-import { fail } from '@sveltejs/kit';
 import { Schema, db } from '$lib/server/db';
 import { generatePasswordResetToken } from '$lib/server/token';
-import { isValidEmail, sendPasswordResetLink } from '$lib/server/email';
+import { sendPasswordResetLink } from '$lib/server/email';
 
-import type { Actions } from './$types';
-import { eq } from 'drizzle-orm';
+import { signInSchema } from '$lib/schema/auth';
+import type { FormMessage } from '$lib/types';
 
-export const actions: Actions = {
-	default: async ({ request }) => {
-		const formData = await request.formData();
-		const email = formData.get('email');
-		// basic check
-		if (!isValidEmail(email)) {
-			return fail(400, {
-				message: 'Invalid email'
-			});
+const schema = signInSchema.pick({ email: true });
+
+export const load = (async () => {
+	const form = await superValidate<typeof schema, FormMessage>(schema);
+	return { form };
+}) satisfies PageServerLoad;
+
+export const actions = {
+	default: async (event) => {
+		const { request } = event;
+
+		const form = await superValidate<typeof schema, FormMessage>(request, schema);
+
+		if (!form.valid) {
+			return message(form, { type: 'error', message: 'Invalid or incomplete form data' });
 		}
+
+		const { email } = form.data;
+
 		try {
 			const [storedUser] = await db
 				.select()
 				.from(Schema.users)
 				.where(eq(Schema.users.email, email));
+
 			if (!storedUser) {
-				return fail(400, {
-					message: 'User does not exist'
-				});
+				return setError(form, 'email', 'No user with that email exists');
 			}
+
 			const user = auth.transformDatabaseUser(storedUser);
 			const token = await generatePasswordResetToken(user.userId);
+
 			await sendPasswordResetLink(token);
-			return {
-				success: true
-			};
 		} catch (e) {
-			return fail(500, {
-				message: 'An unknown error occurred'
-			});
+			return message(form, { type: 'error', message: 'An unknown error occured!' });
 		}
+
+		return message(form, { type: 'success', message: 'Password reset link sent' });
 	}
-};
+} satisfies Actions;
+
