@@ -12,7 +12,7 @@
 </script>
 
 {#if errorMessage}
-	<Alert variant="destructive">
+	<Alert variant="destructive" dismissable>
 		<AlertTitle>
 			{errorMessage}
 		</AlertTitle>
