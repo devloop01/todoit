@@ -1,29 +1,35 @@
 <script lang="ts" context="module">
-	type MouseDownEvent = MouseEvent & {
-		currentTarget: EventTarget & HTMLLabelElement;
-	};
-	export type LabelRootProps = {
-		onMouseDown?: (event: MouseDownEvent) => void;
-		ref?: HTMLLabelElement | undefined;
-	};
+	import { cva } from 'class-variance-authority';
+
+	export const labelVariants = cva(
+		'text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 data-[disabled="true"]:cursor-not-allowed data-[disabled="true"]:opacity-70'
+	);
 </script>
 
 <script lang="ts">
-	export let onMouseDown: LabelRootProps['onMouseDown'] = undefined;
-	export let ref: LabelRootProps['ref'] = undefined;
+	import { cn } from '$lib/utils';
+	import { createLabel, melt } from '@melt-ui/svelte';
+	import type { HTMLLabelAttributes } from 'svelte/elements';
+
+	interface $$Props extends HTMLLabelAttributes {
+		disabled?: boolean;
+	}
+
+	let className: $$Props['class'] = undefined;
+	export { className as class };
+	export let disabled: $$Props['disabled'] = undefined;
+
+	const {
+		elements: { root }
+	} = createLabel();
 </script>
 
-<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 <label
+	class={cn(labelVariants(), className)}
+	data-disabled={disabled}
+	aria-disabled={disabled}
+	use:melt={$root}
 	{...$$restProps}
-	on:mousedown={(event) => {
-		onMouseDown?.(event);
-		// prevent text selection when double clicking label
-		if (!event.defaultPrevented && event.detail > 1) {
-			event.preventDefault();
-		}
-	}}
-	bind:this={ref}
 >
 	<slot />
 </label>

@@ -6,25 +6,27 @@
 	import { Input } from '$components/ui/input';
 	import { Label } from '$components/ui/label';
 
-	if (!$$restProps.id) $$restProps.id = generateId();
-
-	type $$Props = HTMLInputAttributes & {
+	interface $$Props extends HTMLInputAttributes {
 		value?: string;
 		error?: string;
 		label?: string;
-	};
+	}
 
 	export let value: $$Props['value'] = undefined;
 	export let label: $$Props['label'] = undefined;
 	export let error: $$Props['error'] = undefined;
+	export let id: $$Props['id'] = undefined;
+
+	if (!id) id = generateId();
 </script>
 
 <div class="space-y-1">
 	{#if label}
-		<Label for={$$restProps.id} class="text-sm font-medium">{label}</Label>
+		<Label disabled={$$restProps.disabled} for={id}>{label}</Label>
 	{/if}
 	<Input
 		bind:value
+		{id}
 		error={!!error}
 		type="text"
 		on:blur

@@ -10,27 +10,29 @@
 
 	let reveal = false;
 
-	if (!$$restProps.id) $$restProps.id = generateId();
-
-	type $$Props = HTMLInputAttributes & {
+	interface $$Props extends HTMLInputAttributes {
 		value?: string;
 		error?: string;
 		label?: string;
-	};
+	}
 
 	export let value: $$Props['value'] = undefined;
 	export let label: $$Props['label'] = undefined;
 	export let error: $$Props['error'] = undefined;
+	export let id: $$Props['id'] = undefined;
+
+	if (!id) id = generateId();
 </script>
 
 <div class="space-y-1">
 	{#if label}
-		<Label for={$$restProps.id} class="text-sm font-medium">{label}</Label>
+		<Label disabled={$$restProps.disabled} for={id}>{label}</Label>
 	{/if}
 	<div class="relative flex items-center">
 		<Input
 			class="pr-8"
 			bind:value
+			{id}
 			error={!!error}
 			on:blur
 			on:change

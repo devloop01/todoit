@@ -6,7 +6,6 @@
 	import { Alert, AlertTitle } from '$components/ui/alert';
 	import { Button } from '$components/ui/button';
 	import { Card, CardContent, CardFooter, CardHeader } from '$components/ui/card';
-	import { Label } from '$components/ui/label';
 	import { PasswordInput } from '$components/ui/password-input';
 
 	export let form: ActionData;
@@ -27,14 +26,8 @@
 		<CardContent>
 			<form method="post" use:enhance>
 				<div class="space-y-4">
-					<div class="space-y-2">
-						<Label for="password" class="text-sm">Password</Label>
-						<PasswordInput name="password" id="password" placeholder="" />
-					</div>
-					<div class="space-y-2">
-						<Label for="confirmPassword" class="text-sm">Confirm password</Label>
-						<PasswordInput name="confirmPassword" id="confirmPassword" placeholder="" />
-					</div>
+					<PasswordInput label="Password" name="password" placeholder="" />
+					<PasswordInput label="Confirm Password" name="confirmPassword" placeholder="" />
 					<Button class="w-full">Reset Password</Button>
 				</div>
 			</form>
@@ -47,7 +40,7 @@
 	</Card>
 
 	{#if form?.message}
-		<Alert variant="destructive">
+		<Alert variant="destructive" dismissable>
 			<AlertTitle>{form.message}</AlertTitle>
 		</Alert>
 	{/if}
