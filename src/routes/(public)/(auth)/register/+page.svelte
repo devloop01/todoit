@@ -81,13 +81,7 @@
 							disabled={$submitting}
 						/>
 						<div class="pt-2.5">
-							<Button class="w-full" disabled={$submitting}>
-								{#if $submitting}
-									<LoaderIcon class="h-5 w-5 animate-spin" />
-								{:else}
-									Register
-								{/if}
-							</Button>
+							<Button class="w-full" loading={$submitting}>Register</Button>
 						</div>
 					</div>
 				</form>

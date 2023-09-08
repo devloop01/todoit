@@ -16,9 +16,10 @@
 
 	export let data: PageData;
 
-	const { form, errors, enhance, submitting, message } = superForm(data.form, {
+	const { form, errors, enhance, submitting } = superForm(data.form, {
 		validators: signInSchema,
 		autoFocusOnError: true,
+
 		onUpdated({ form }) {
 			if (form.message) {
 				if (form.message.type === 'error') toast.error(form.message.message);
@@ -66,13 +67,7 @@
 						/>
 
 						<div class="pt-2.5">
-							<Button class="w-full" disabled={$submitting}>
-								{#if $submitting}
-									<LoaderIcon class="h-5 w-5 animate-spin" />
-								{:else}
-									Login
-								{/if}
-							</Button>
+							<Button class="w-full" loading={$submitting}>Login</Button>
 						</div>
 					</div>
 				</form>
