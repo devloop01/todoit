@@ -8,6 +8,11 @@ export type TodoFilter = 'COMPLETED' | 'REMAINING';
 
 export type User = InferSelectModel<typeof Schema.users>;
 
+export type FormMessage = {
+	type: 'error' | 'success';
+	message: string;
+};
+
 export type ValueFunction<TValue, TArg> = (arg: TArg) => TValue;
 export type ValueOrFunction<TValue, TArg> = TValue | ValueFunction<TValue, TArg>;
 
