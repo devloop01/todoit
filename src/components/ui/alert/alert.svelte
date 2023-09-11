@@ -35,10 +35,10 @@
 				type="button"
 				variant="ghost"
 				size="icon"
-				class="square-6 absolute right-2 top-1/2 -translate-y-1/2 hover:bg-foreground/10 hover:text-inherit"
+				class="sq-6 absolute right-2 top-1/2 -translate-y-1/2 hover:bg-foreground/10 hover:text-inherit"
 				on:click={close}
 			>
-				<XIcon class="square-4" />
+				<XIcon class="sq-4" />
 			</Button>
 		{/if}
 	</div>

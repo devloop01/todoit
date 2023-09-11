@@ -14,6 +14,9 @@ export default {
 			}
 		},
 		extend: {
+			transitionTimingFunction: {
+				'out-back': 'cubic-bezier(0.34, 1.56, 0.64, 1)'
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
@@ -76,7 +79,7 @@ export default {
 			// Square utility
 			matchUtilities(
 				{
-					square: (value) => ({
+					sq: (value) => ({
 						width: value,
 						height: value
 					})

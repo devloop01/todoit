@@ -43,20 +43,20 @@
 >
 	<div class="group relative flex w-[18rem] max-w-[calc(100vw-2rem)] items-center gap-2 p-3">
 		{#if data.type !== 'default'}
-			<div class="square-5 relative grid place-items-center">
+			<div class="sq-5 relative grid place-items-center">
 				{#if data.type === 'loading'}
 					<div class="absolute" in:scale>
-						<Loader2 class="square-4 animate-spin duration-700" />
+						<Loader2 class="sq-4 animate-spin duration-700" />
 					</div>
 				{:else if data.type === 'success'}
-					<div class="square-5 absolute" in:scale={{ duration: 600, easing: backOut }}>
+					<div class="sq-5 absolute" in:scale={{ duration: 600, easing: backOut }}>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							viewBox="0 0 24 24"
-							class="stroke-success-muted fill-none stroke-2"
+							class="fill-none stroke-success-muted stroke-2"
 						>
 							<path
-								class="stroke-success-muted-foreground fill-success-muted-foreground origin-center"
+								class="origin-center fill-success-muted-foreground stroke-success-muted-foreground"
 								stroke-linecap="round"
 								stroke-linejoin="round"
 								d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"
@@ -71,14 +71,14 @@
 						</svg>
 					</div>
 				{:else}
-					<div class="square-5 absolute" in:scale={{ duration: 600, easing: backOut }}>
+					<div class="sq-5 absolute" in:scale={{ duration: 600, easing: backOut }}>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							viewBox="0 0 24 24"
-							class="stroke-destructive-muted fill-none stroke-2"
+							class="fill-none stroke-destructive-muted stroke-2"
 						>
 							<path
-								class="stroke-destructive-muted-foreground fill-destructive-muted-foreground origin-center"
+								class="origin-center fill-destructive-muted-foreground stroke-destructive-muted-foreground"
 								stroke-linecap="round"
 								stroke-linejoin="round"
 								d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"
@@ -111,9 +111,9 @@
 			<button
 				type="button"
 				use:melt={$close(id)}
-				class="square-5 grid place-items-center rounded-full opacity-0 transition-all hover:bg-foreground/5 group-hover:opacity-100"
+				class="sq-5 grid place-items-center rounded-full opacity-0 transition-all hover:bg-foreground/5 group-hover:opacity-100"
 			>
-				<X class="square-4 !stroke-black/50" />
+				<X class="sq-4 !stroke-black/50" />
 			</button>
 		{/if}
 	</div>
