@@ -1,2 +1,4 @@
-export { default as Toaster, toast } from './toaster.svelte';
+import Toaster, { toast } from './toaster.svelte';
 
+export default Toaster;
+export { Toaster, toast };

@@ -1,6 +1,23 @@
-export { default as Card } from './card.svelte';
-export { default as CardContent } from './card-content.svelte';
-export { default as CardDescription } from './card-description.svelte';
-export { default as CardFooter } from './card-footer.svelte';
-export { default as CardHeader } from './card-header.svelte';
-export { default as CardTitle } from './card-title.svelte';
+import Root from './card.svelte';
+import Header from './card-header.svelte';
+import Title from './card-title.svelte';
+import Content from './card-content.svelte';
+import Description from './card-description.svelte';
+import Footer from './card-footer.svelte';
+
+export {
+	Root,
+	Header,
+	Title,
+	Content,
+	Description,
+	Footer,
+	//
+	Root as Card,
+	Header as CardHeader,
+	Title as CardTitle,
+	Content as CardContent,
+	Description as CardDescription,
+	Footer as CardFooter
+};
+

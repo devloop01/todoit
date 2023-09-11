@@ -1,1 +1,5 @@
-export { default as PasswordInput } from './password-input.svelte';
+import PasswordInput from './password-input.svelte';
+
+export default PasswordInput;
+export { PasswordInput };
+
