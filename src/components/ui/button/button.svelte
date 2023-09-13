@@ -66,7 +66,7 @@
 	on:mouseleave
 >
 	{#if loading}
-		<Spinner />
+		<Spinner color="white" />
 	{:else}
 		<slot />
 	{/if}
