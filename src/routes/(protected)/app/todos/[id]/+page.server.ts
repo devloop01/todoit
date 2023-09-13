@@ -1,4 +1,4 @@
-import { getTodo } from '$lib/services/todos';
+import { getTodo } from '$lib/server/db/actions/todos';
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 

@@ -2,7 +2,7 @@ import type { PageServerLoad, Actions } from './$types';
 import type { TodoFilter } from '$lib/types';
 
 import { fail } from '@sveltejs/kit';
-import { createTodo, updateTodo, deleteTodo, getFilteredTodos } from '$lib/services/todos';
+import { createTodo, updateTodo, deleteTodo, getFilteredTodos } from '$lib/server/db/actions/todos';
 import { todoFilter } from '$lib/schema';
 // import { redirect } from 'sveltekit-flash-message/server';
 
