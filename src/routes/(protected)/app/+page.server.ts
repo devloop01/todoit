@@ -1,10 +1,21 @@
 import type { PageServerLoad, Actions } from './$types';
-import { fail } from '@sveltejs/kit';
-import { createTodo, getTodos, updateTodo, deleteTodo } from '$lib/services/todos';
+import type { TodoFilter } from '$lib/types';
 
-export const load = (async () => {
+import { fail } from '@sveltejs/kit';
+import { createTodo, updateTodo, deleteTodo, getFilteredTodos } from '$lib/services/todos';
+import { todoFilter } from '$lib/schema';
+// import { redirect } from 'sveltekit-flash-message/server';
+
+export const load = (async (event) => {
+	const parsedFilter = todoFilter.safeParse(event.url.searchParams.get('filter') ?? 'remaining');
+	let filter: TodoFilter = 'remaining';
+	if (parsedFilter.success) filter = parsedFilter.data;
+	// else {
+	// 	throw redirect({ type: 'error', message: 'invalid filter!' }, event);
+	// }
+
 	return {
-		todos: await getTodos()
+		filteredTodos: getFilteredTodos(filter)
 	};
 }) satisfies PageServerLoad;
 

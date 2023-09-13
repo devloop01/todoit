@@ -1,6 +1,5 @@
 <script lang="ts">
 	import type { ActionData, PageData } from './$types';
-	import type { TodoFilter } from '$lib/types';
 
 	import { enhance } from '$app/forms';
 
@@ -12,14 +11,7 @@
 	export let data: PageData;
 	export let form: ActionData;
 
-	$: todos = data.todos;
-
-	let filter: TodoFilter = 'REMAINING';
-
-	$: filteredTodos = todos.filter((todo) => {
-		if (filter === 'REMAINING') return !todo.completed;
-		if (filter === 'COMPLETED') return todo.completed;
-	});
+	$: ({ filteredTodos } = data);
 </script>
 
 <svelte:head>
@@ -28,48 +20,32 @@
 
 <div class="space-y-2 border-b px-4 py-3">
 	<div class="flex gap-2">
-		<label for="filter-remaining" class="inline-block">
-			<input
-				type="radio"
-				id="filter-remaining"
-				class="peer sr-only"
-				name="filter"
-				value="REMAINING"
-				bind:group={filter}
-			/>
-			<span
-				class="flex w-fit cursor-pointer select-none items-center rounded-full border px-3 py-1 font-inter text-xs transition-colors
-									peer-checked:border-transparent peer-checked:bg-primary peer-checked:text-white
-									peer-[&:not(:checked)]:hover:bg-foreground/5">Remaining</span
+		<div class="inline-block">
+			<a
+				href="/?filter=remaining"
+				class="flex w-fit cursor-pointer select-none items-center rounded-full border px-3 py-1 text-xs transition-colors"
+				>Remaining</a
 			>
-		</label>
-		<label for="filter-completed" class="inline-block">
-			<input
-				type="radio"
-				id="filter-completed"
-				class="peer sr-only"
-				name="filter"
-				value="COMPLETED"
-				bind:group={filter}
-			/>
-			<span
-				class="flex w-fit cursor-pointer select-none items-center rounded-full border px-3 py-1 font-inter text-xs transition-colors
-									peer-checked:border-transparent peer-checked:bg-primary peer-checked:text-white
-									peer-[&:not(:checked)]:hover:bg-foreground/5">Completed</span
+		</div>
+		<div class="inline-block">
+			<a
+				href="/?filter=completed"
+				class="flex w-fit cursor-pointer select-none items-center rounded-full border px-3 py-1 text-xs transition-colors"
+				>Completed</a
 			>
-		</label>
+		</div>
 	</div>
 
 	<div class="flex items-center gap-3">
-		<span class="font-inter text-xs">{todos.filter((t) => !t.completed).length} remaining</span>
-		<span class="font-inter text-xs">{todos.filter((t) => t.completed).length} completed</span>
+		<span class="text-xs">{0} remaining</span>
+		<span class="text-xs">{0} completed</span>
 	</div>
 </div>
 
 <main class="flex-1 overflow-y-auto py-2">
 	{#if filteredTodos.length === 0}
 		<div class="flex h-full flex-col items-center justify-center">
-			<p class="text-slate-250 font-inter text-sm">No todos found</p>
+			<p class="text-slate-250 text-sm">No todos found</p>
 		</div>
 	{:else}
 		<div class="grid">
@@ -100,7 +76,7 @@
 {#if form}
 	{#if form.error}
 		<div class="bg-red-500 p-2">
-			<p class="font-inter text-sm text-white">{form.error}</p>
+			<p class="text-sm text-white">{form.error}</p>
 		</div>
 	{/if}
 {/if}
