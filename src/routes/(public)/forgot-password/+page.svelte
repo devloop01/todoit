@@ -8,6 +8,7 @@
 	import { TextInput } from '$components/ui/text-input';
 	import { toast } from '$components/ui/toast';
 	import { Skeleton } from '$components/ui/skeleton';
+	import { Heading, Small, Text } from '$components/typography';
 
 	export let data: PageData;
 
@@ -28,12 +29,10 @@
 <div class="space-y-2">
 	<Card class="min-w-[300px]">
 		<CardHeader>
-			<h2 class="scroll-m-20 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
-				Forgot Password?
-			</h2>
-			<p class="text-sm text-foreground/80">
-				Enter your email address and we'll send you a link to reset your password.
-			</p>
+			<Heading level="h2">Forgot Password?</Heading>
+			<Text variant="muted"
+				>Enter your email address and we'll send you a link to reset your password.</Text
+			>
 		</CardHeader>
 		<CardContent>
 			<Skeleton visible>
@@ -57,9 +56,9 @@
 			</Skeleton>
 		</CardContent>
 		<CardFooter>
-			<div class="flex items-center gap-2">
-				<a href="/login" class="text-sm text-primary hover:underline"> ← Back to login</a>
-			</div>
+			<Small>
+				<a href="/login" class="text-primary hover:underline"> ← Back to login</a>
+			</Small>
 		</CardFooter>
 	</Card>
 </div>

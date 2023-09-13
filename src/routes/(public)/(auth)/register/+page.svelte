@@ -8,7 +8,7 @@
 	import { Button } from '$components/ui/button';
 	import { PasswordInput } from '$components/ui/password-input';
 	import { Card, CardContent, CardFooter } from '$components/ui/card';
-	import { Text } from '$components/typography';
+	import { Heading, Small, Text } from '$components/typography';
 	import PageError from '$components/page-error.svelte';
 	import { TextInput } from '$components/ui/text-input';
 	import { toast } from '$components/ui/toast';
@@ -33,10 +33,10 @@
 
 <div class="space-y-6">
 	<div class="">
-		<h3 class="scroll-m-20 font-inter text-4xl font-semibold tracking-tight lg:text-5xl">
-			Hello User!
-		</h3>
-		<p class="pl-1 text-foreground/70">create your account</p>
+		<Heading level="h2">Create account</Heading>
+		<Small
+			>Already have an account? <a href="/login" class="font-medium text-primary">Sign in</a></Small
+		>
 	</div>
 
 	<div class="space-y-2">
@@ -81,17 +81,11 @@
 							disabled={$submitting}
 						/>
 						<div class="pt-2.5">
-							<Button class="w-full" loading={$submitting}>Register</Button>
+							<Button class="w-full" loading={$submitting}>Next</Button>
 						</div>
 					</div>
 				</form>
 			</CardContent>
-
-			<CardFooter>
-				<Text>
-					Already have an account? <a href="/login" class="font-medium text-primary">Sign in</a>
-				</Text>
-			</CardFooter>
 		</Card>
 	</div>
 </div>

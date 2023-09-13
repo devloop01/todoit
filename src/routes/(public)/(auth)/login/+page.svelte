@@ -5,12 +5,11 @@
 
 	import { signInSchema } from '$lib/schema/auth';
 
-	import { LoaderIcon } from 'lucide-svelte';
 	import { Button } from '$components/ui/button';
 	import { PasswordInput } from '$components/ui/password-input';
 	import { Card, CardContent, CardFooter } from '$components/ui/card';
 	import PageError from '$components/page-error.svelte';
-	import { Text } from '$components/typography';
+	import { Heading, Small, Text } from '$components/typography';
 	import { TextInput } from '$components/ui/text-input';
 	import { toast } from '$components/ui/toast';
 
@@ -34,10 +33,10 @@
 
 <div class="space-y-6">
 	<div>
-		<h3 class="scroll-m-20 font-inter text-4xl font-semibold tracking-tight lg:text-5xl">
-			Welcome back!
-		</h3>
-		<p class="pl-1 text-foreground/70">write your todos</p>
+		<Heading level="h2">Sign In</Heading>
+		<Small>
+			Don't have an account? <a href="/register" class="font-medium text-primary">Sign up</a>
+		</Small>
 	</div>
 
 	<div class="space-y-2">
@@ -74,9 +73,9 @@
 			</CardContent>
 
 			<CardFooter>
-				<Text>
-					Don't have an account? <a href="/register" class="font-medium text-primary">Sign up</a>
-				</Text>
+				<Small>
+					<a href="/forgot-password" class="text-primary hover:underline">Forgot password?</a>
+				</Small>
 			</CardFooter>
 		</Card>
 	</div>
