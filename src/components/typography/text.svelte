@@ -4,7 +4,7 @@
 	export const textVariants = cva('', {
 		variants: {
 			variant: {
-				default: 'leading-7 [&:not(:first-child)]:mt-6',
+				default: 'leading-7 [&:not(:first-child)]:mt-4',
 				lead: 'text-xl text-muted-foreground',
 				large: 'text-lg font-semibold',
 				muted: 'text-sm text-muted-foreground'
