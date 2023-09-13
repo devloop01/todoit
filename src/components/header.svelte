@@ -6,6 +6,7 @@
 
 	import { LogOutIcon, MoonIcon, SunIcon } from 'lucide-svelte';
 	import { Button, buttonVariants } from '$components/ui';
+	import { enhance } from '$app/forms';
 
 	onMount(() => {
 		loadTheme();
@@ -25,7 +26,7 @@
 			{/if}
 		</Button>
 		{#if $isLoggedIn}
-			<form method="POST" action="/?/logout">
+			<form method="POST" action="/?/logout" use:enhance>
 				<button type="submit" class={buttonVariants({ variant: 'ghost', size: 'icon' })}>
 					<LogOutIcon size="16" />
 				</button>
