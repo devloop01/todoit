@@ -1,5 +1,5 @@
 <script lang="ts">
-	import '../app.css';
+	import '@/styles/app.postcss';
 
 	import { page } from '$app/stores';
 	import { dev } from '$app/environment';
