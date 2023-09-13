@@ -1,12 +1,13 @@
 <script lang="ts">
 	import '../app.css';
 
-	import { getFlash } from 'sveltekit-flash-message';
-	import { Toaster, toast } from '$components/ui/toast';
-
 	import { page } from '$app/stores';
+	import { dev } from '$app/environment';
 
-	export let data;
+	import { getFlash } from 'sveltekit-flash-message';
+
+	import { Toaster, toast } from '$components/ui/toast';
+	import TailwindIndicator from '$components/tailwind-indicator.svelte';
 
 	const flash = getFlash(page);
 
@@ -27,10 +28,10 @@
 
 		flash.set(undefined);
 	});
-
-	let { user } = data;
-	$: ({ user } = data);
 </script>
 
 <slot />
 <Toaster />
+{#if dev}
+	<TailwindIndicator />
+{/if}
