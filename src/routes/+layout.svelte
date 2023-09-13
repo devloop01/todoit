@@ -2,7 +2,7 @@
 	import '@/styles/app.postcss';
 
 	import { page } from '$app/stores';
-	import { dev } from '$app/environment';
+	import { browser, dev } from '$app/environment';
 
 	import { getFlash } from 'sveltekit-flash-message';
 
@@ -14,16 +14,10 @@
 	flash.subscribe(($flash) => {
 		if (!$flash) return;
 
-		switch ($flash.type) {
-			case 'success':
-				toast.success($flash.message);
-				break;
-			case 'error':
-				toast.error($flash.message);
-				break;
-			default:
-				toast($flash.message);
-				break;
+		if (browser) {
+			if (!$flash.type) toast($flash.message);
+			if ($flash.type === 'success') toast.success($flash.message);
+			if ($flash.type === 'error') toast.error($flash.message);
 		}
 
 		flash.set(undefined);

@@ -1,6 +1,7 @@
 import type { PageServerLoad, Actions } from './$types';
-import { redirect, fail } from '@sveltejs/kit';
+import { fail } from '@sveltejs/kit';
 import { auth } from '$lib/server/lucia';
+import { redirect } from 'sveltekit-flash-message/server';
 
 export const load = (async ({ locals, url }) => {
 	const session = await locals.auth.validate();
@@ -12,12 +13,13 @@ export const load = (async ({ locals, url }) => {
 }) satisfies PageServerLoad;
 
 export const actions = {
-	logout: async ({ locals }) => {
-		const session = await locals.auth.validate();
+	logout: async (event) => {
+		const session = await event.locals.auth.validate();
 		if (!session) return fail(401);
 		await auth.invalidateSession(session.sessionId);
-		locals.auth.setSession(null);
-		throw redirect(302, '/login');
+		event.locals.auth.setSession(null);
+
+		throw redirect('/login', { message: 'Logged out!' }, event);
 	}
 } satisfies Actions;
 
