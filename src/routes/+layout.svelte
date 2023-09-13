@@ -1,8 +1,6 @@
 <script lang="ts">
 	import '../app.css';
 
-	import { currentUser } from '$lib/store';
-
 	import { getFlash } from 'sveltekit-flash-message';
 	import { Toaster, toast } from '$components/ui/toast';
 
@@ -32,8 +30,6 @@
 
 	let { user } = data;
 	$: ({ user } = data);
-
-	if (user) currentUser.set({ id: user.userId, ...user });
 </script>
 
 <slot />

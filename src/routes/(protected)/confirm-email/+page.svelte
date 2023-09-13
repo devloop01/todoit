@@ -2,13 +2,15 @@
 	import type { ActionData } from './$types';
 
 	import { enhance } from '$app/forms';
-	import { currentUser } from '$lib/store';
 
 	import { Alert, AlertTitle } from '$components/ui/alert';
 	import { Button } from '$components/ui/button';
 	import { Card, CardContent, CardFooter, CardHeader } from '$components/ui/card';
 
 	export let form: ActionData;
+	export let data;
+
+	$: ({ user } = data);
 </script>
 
 <svelte:head>
@@ -17,7 +19,7 @@
 
 <main class="px-4 pt-8">
 	<div class="space-y-2">
-		{#if $currentUser?.email_verified}
+		{#if user?.email_verified}
 			<Card>
 				<CardHeader>
 					<h2

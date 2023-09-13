@@ -1,10 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 
-	import { onMount } from 'svelte';
 	import { superForm } from 'sveltekit-superforms/client';
-
-	import { currentUser } from '$lib/store';
 
 	import { Button } from '$components/ui/button';
 	import { Card, CardContent, CardFooter, CardHeader } from '$components/ui/card';
@@ -14,8 +11,6 @@
 
 	export let data: PageData;
 
-	let visible = false;
-
 	const { form, errors, enhance, submitting, constraints, validate } = superForm(data.form, {
 		onUpdated({ form }) {
 			if (form.message?.type === 'success') toast.success(form.message.message);
@@ -23,10 +18,7 @@
 		}
 	});
 
-	onMount(() => {
-		visible = true;
-		if ($currentUser) validate('email', { value: $currentUser.email });
-	});
+	if (data.user) validate('email', { value: data.user.email });
 </script>
 
 <svelte:head>
@@ -44,7 +36,7 @@
 			</p>
 		</CardHeader>
 		<CardContent>
-			<Skeleton {visible}>
+			<Skeleton visible>
 				<form method="post" use:enhance>
 					<div class="space-y-4">
 						<TextInput
@@ -56,7 +48,7 @@
 							error={$errors.email?.[0]}
 							disabled={$submitting}
 							id="email"
-							{...!!$currentUser && { readonly: true }}
+							{...!!data.user && { readonly: true }}
 							{...$constraints.email}
 						/>
 						<Button class="w-full" loading={$submitting}>Reset Password</Button>

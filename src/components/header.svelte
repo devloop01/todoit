@@ -1,11 +1,11 @@
 <script>
 	import { onMount } from 'svelte';
-	import { currentUser, theme } from '$lib/store';
+	import { theme } from '$lib/store';
 	import { loadTheme, toggleTheme } from '$lib/utils/theme';
+	import { isLoggedIn } from '$lib/utils/is';
 
 	import { LogOutIcon, MoonIcon, SunIcon } from 'lucide-svelte';
-	import { buttonVariants } from './ui/button';
-	import { Button } from './ui/button';
+	import { Button, buttonVariants } from '$components/ui';
 
 	onMount(() => {
 		loadTheme();
@@ -24,14 +24,14 @@
 				<MoonIcon size="16" class="fill-white" />
 			{/if}
 		</Button>
-		{#if $currentUser === null}
-			<a href="/login" class={buttonVariants()}>Login</a>
-		{:else}
+		{#if $isLoggedIn}
 			<form method="POST" action="/?/logout">
 				<button type="submit" class={buttonVariants({ variant: 'ghost', size: 'icon' })}>
 					<LogOutIcon size="16" />
 				</button>
 			</form>
+		{:else}
+			<a href="/login" class={buttonVariants()}>Login</a>
 		{/if}
 	</div>
 </header>
