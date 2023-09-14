@@ -15,7 +15,8 @@ export default {
 		},
 		extend: {
 			transitionTimingFunction: {
-				'out-back': 'cubic-bezier(0.34, 1.56, 0.64, 1)'
+				'out-back': 'cubic-bezier(0.34, 1.56, 0.64, 1)',
+				'cubic-out': 'cubic-bezier(0.33, 1, 0.68, 1)'
 			},
 			colors: {
 				border: 'hsl(var(--border))',
