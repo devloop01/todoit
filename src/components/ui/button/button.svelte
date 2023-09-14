@@ -2,7 +2,7 @@
 	import { cva } from 'class-variance-authority';
 
 	export const buttonVariants = cva(
-		'inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50',
+		'inline-flex items-center justify-center rounded-md text-sm font-medium transition-all ease-cubic-out focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50',
 		{
 			variants: {
 				variant: {
@@ -35,6 +35,7 @@
 	import type { HTMLButtonAttributes } from 'svelte/elements';
 	import { cn } from '$lib/utils';
 	import { Spinner } from '$components/icons';
+	import { scale } from 'svelte/transition';
 
 	interface $$Props extends HTMLButtonAttributes {
 		type?: HTMLButtonAttributes['type'];
@@ -66,8 +67,11 @@
 	on:mouseleave
 >
 	{#if loading}
-		<Spinner color="white" />
-	{:else}
-		<slot />
+		<div transition:scale={{ duration: 100, start: 1.5 }} class="absolute">
+			<Spinner color="white" />
+		</div>
 	{/if}
+	<div class={cn('ease-cubic-out transition-colors duration-100', loading && 'text-transparent')}>
+		<slot />
+	</div>
 </button>
