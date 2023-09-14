@@ -43,7 +43,7 @@ export const actions = {
 			const user = auth.transformDatabaseUser(storedUser);
 			const token = await generatePasswordResetToken(user.userId);
 
-			await sendPasswordResetLink(token);
+			await sendPasswordResetLink({ email, token });
 		} catch (e) {
 			return message(form, { type: 'error', message: 'An unknown error occured!' });
 		}

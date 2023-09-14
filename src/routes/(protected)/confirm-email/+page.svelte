@@ -11,6 +11,8 @@
 	export let data;
 
 	$: ({ user } = data);
+
+	let loading = false;
 </script>
 
 <svelte:head>
@@ -48,15 +50,25 @@
 					<p>Email verification link was sent to your inbox (i.e. console).</p>
 				</CardContent>
 				<CardFooter>
-					<form method="post" use:enhance>
-						<Button>Resend verification link</Button>
+					<form
+						method="post"
+						use:enhance={() => {
+							loading = true;
+							return async ({ update }) => {
+								// await new Promise((r) => setTimeout(r, 1000));
+								await update();
+								loading = false;
+							};
+						}}
+					>
+						<Button {loading}>Resend verification link</Button>
 					</form>
 				</CardFooter>
 			</Card>
 		{/if}
 
 		{#if form?.success}
-			<Alert variant="success">
+			<Alert variant="success" dismissable>
 				<AlertTitle>Your verification link was resent</AlertTitle>
 			</Alert>
 		{/if}
