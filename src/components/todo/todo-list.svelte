@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { Todo } from '$lib/types';
 	import { cn } from '$lib/utils';
+	import { flip } from 'svelte/animate';
 
 	import TodoCard from './todo-card.svelte';
 
@@ -9,6 +10,8 @@
 
 <div class={cn('flex flex-col gap-2', $$props.class)}>
 	{#each todos as todo (todo.id)}
-		<TodoCard {todo} />
+		<div animate:flip={{ duration: 200 }}>
+			<TodoCard {todo} />
+		</div>
 	{/each}
 </div>
