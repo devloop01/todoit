@@ -26,8 +26,7 @@ export const actions = {
 
 		if (!todoText)
 			return fail(422, {
-				text: todoText,
-				error: 'No todo text provided'
+				message: 'No todo text provided'
 			});
 
 		await createTodo(todoText);
@@ -39,16 +38,14 @@ export const actions = {
 
 		if (!todoId)
 			return fail(422, {
-				todoId,
-				error: 'Todo id not provided'
+				message: 'Todo id not provided'
 			});
 
 		try {
 			await deleteTodo(todoId);
 		} catch (e) {
 			return fail(404, {
-				todoId,
-				error: 'Todo not found'
+				message: 'Todo not found'
 			});
 		}
 	},
@@ -60,16 +57,14 @@ export const actions = {
 
 		if (!todoId || !isTodoCompleted)
 			return fail(422, {
-				todoId,
-				error: 'Todo id not provided'
+				message: 'Todo id not provided'
 			});
 
 		try {
 			await updateTodo(todoId, { completed: isTodoCompleted === 'true' ? false : true });
 		} catch (e) {
 			return fail(404, {
-				todoId,
-				error: 'Todo not found'
+				message: 'Todo not found'
 			});
 		}
 	}
