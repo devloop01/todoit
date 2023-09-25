@@ -55,7 +55,7 @@ export const actions = {
 
 			// send email verification link
 			const token = await generateEmailVerificationToken(user.userId);
-			await sendEmailVerificationLink(token);
+			await sendEmailVerificationLink({ email, token });
 		} catch (e) {
 			isError = true;
 
