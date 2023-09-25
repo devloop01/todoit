@@ -71,7 +71,7 @@
 			<Spinner color="white" />
 		</div>
 	{/if}
-	<div class={cn('ease-cubic-out transition-colors duration-100', loading && 'text-transparent')}>
+	<div class={cn('transition-colors duration-100 ease-cubic-out', loading && 'text-transparent')}>
 		<slot />
 	</div>
 </button>
