@@ -11,6 +11,9 @@ dependencies:
   '@fontsource-variable/open-sans':
     specifier: ^5.0.13
     version: 5.0.13
+  '@formkit/auto-animate':
+    specifier: ^0.8.0
+    version: 0.8.0
   '@lucia-auth/adapter-postgresql':
     specifier: ^2.0.1
     version: 2.0.1(lucia@2.7.0)(pg@8.11.3)(postgres@3.3.5)
@@ -437,6 +440,10 @@ packages:
 
   /@fontsource-variable/open-sans@5.0.13:
     resolution: {integrity: sha512-G/lTR5vVBcwRU0vkeYqFfX1UEqHfCG52ccdVgcjwSOcDvi5jQEL3ta212qA2rKwSdhmdei600yNburmYoT1wsg==}
+    dev: false
+
+  /@formkit/auto-animate@0.8.0:
+    resolution: {integrity: sha512-G8f7489ka0mWyi+1IEZT+xgIwcpWtRMmE2x+IrVoQ+KM1cP6VDj/TbujZjwxdb0P8w8b16/qBfViRmydbYHwMw==}
     dev: false
 
   /@humanwhocodes/config-array@0.11.11:

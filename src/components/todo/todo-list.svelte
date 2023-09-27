@@ -1,17 +1,15 @@
 <script lang="ts">
 	import type { Todo } from '$lib/types';
 	import { cn } from '$lib/utils';
-	import { flip } from 'svelte/animate';
+	import autoAnimate from '@formkit/auto-animate';
 
 	import TodoCard from './todo-card.svelte';
 
 	export let todos: Todo[];
 </script>
 
-<div class={cn('flex flex-col gap-2', $$props.class)}>
+<div class={cn('flex flex-col gap-2', $$props.class)} use:autoAnimate>
 	{#each todos as todo (todo.id)}
-		<div animate:flip={{ duration: 200 }}>
-			<TodoCard {todo} />
-		</div>
+		<TodoCard {todo} />
 	{/each}
 </div>
