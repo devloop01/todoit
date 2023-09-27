@@ -5,7 +5,11 @@ export const todos = pgTable('todos', {
 	title: varchar('title', { length: 50 }).notNull(),
 	description: varchar('description', { length: 255 }),
 	completed: boolean('completed').notNull().default(false),
-	created_at: timestamp('created_at', { mode: 'string' }).notNull().defaultNow()
+	created_at: timestamp('created_at', { mode: 'string' }).notNull().defaultNow(),
+
+	user_id: varchar('user_id', { length: 15 })
+		.notNull()
+		.references(() => users.id)
 });
 
 // -----------------------------------

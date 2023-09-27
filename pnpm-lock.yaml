@@ -11,6 +11,9 @@ dependencies:
   '@fontsource-variable/open-sans':
     specifier: ^5.0.13
     version: 5.0.13
+  '@formkit/auto-animate':
+    specifier: ^0.8.0
+    version: 0.8.0
   '@lucia-auth/adapter-postgresql':
     specifier: ^2.0.1
     version: 2.0.1(lucia@2.7.0)(pg@8.11.3)(postgres@3.3.5)
@@ -23,6 +26,9 @@ dependencies:
   drizzle-orm:
     specifier: ^0.28.6
     version: 0.28.6(pg@8.11.3)(postgres@3.3.5)
+  drizzle-zod:
+    specifier: ^0.5.1
+    version: 0.5.1(drizzle-orm@0.28.6)(zod@3.22.2)
   lucia:
     specifier: ^2.7.0
     version: 2.7.0
@@ -434,6 +440,10 @@ packages:
 
   /@fontsource-variable/open-sans@5.0.13:
     resolution: {integrity: sha512-G/lTR5vVBcwRU0vkeYqFfX1UEqHfCG52ccdVgcjwSOcDvi5jQEL3ta212qA2rKwSdhmdei600yNburmYoT1wsg==}
+    dev: false
+
+  /@formkit/auto-animate@0.8.0:
+    resolution: {integrity: sha512-G8f7489ka0mWyi+1IEZT+xgIwcpWtRMmE2x+IrVoQ+KM1cP6VDj/TbujZjwxdb0P8w8b16/qBfViRmydbYHwMw==}
     dev: false
 
   /@humanwhocodes/config-array@0.11.11:
@@ -1438,6 +1448,16 @@ packages:
     dependencies:
       pg: 8.11.3
       postgres: 3.3.5
+    dev: false
+
+  /drizzle-zod@0.5.1(drizzle-orm@0.28.6)(zod@3.22.2):
+    resolution: {integrity: sha512-C/8bvzUH/zSnVfwdSibOgFjLhtDtbKYmkbPbUCq46QZyZCH6kODIMSOgZ8R7rVjoI+tCj3k06MRJMDqsIeoS4A==}
+    peerDependencies:
+      drizzle-orm: '>=0.23.13'
+      zod: '*'
+    dependencies:
+      drizzle-orm: 0.28.6(pg@8.11.3)(postgres@3.3.5)
+      zod: 3.22.2
     dev: false
 
   /editorconfig@1.0.4:
@@ -3799,4 +3819,3 @@ packages:
 
   /zod@3.22.2:
     resolution: {integrity: sha512-wvWkphh5WQsJbVk1tbx1l1Ly4yg+XecD+Mq280uBGt9wa5BKSWf4Mhp6GmrkPixhMxmabYY7RbzlwVP32pbGCg==}
-    dev: true

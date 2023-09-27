@@ -1,13 +1,17 @@
 import { drizzle } from 'drizzle-orm/postgres-js';
 import postgres from 'postgres';
 
-import { DATABASE_URL, NODE_ENV } from '$env/static/private';
+import { dev } from '$app/environment';
+import { DATABASE_URL } from '$env/static/private';
 
 import * as Schema from './schema';
 
-const client = postgres(DATABASE_URL, { ssl: NODE_ENV === 'production' ? 'require' : false });
+const client = postgres(DATABASE_URL, { ssl: dev ? false : 'require' });
 
-const db = drizzle(client, { schema: Schema });
+const db = drizzle(client, {
+	schema: Schema
+	// logger: dev
+});
 
 export { client, db, Schema };
 
