@@ -7,11 +7,12 @@
 	import { Button } from '$components/ui/button';
 	import { Label } from '$components/ui/label';
 	import { Input } from '$components/ui/input';
+	// import { Skeleton } from '$components/ui';
 
 	export let data: PageData;
 	export let form: ActionData;
 
-	$: ({ filteredTodos } = data);
+	$: ({ streamed, filteredTodos } = data);
 </script>
 
 <svelte:head>
@@ -43,26 +44,41 @@
 </div>
 
 <main class="flex-1 overflow-y-auto py-2">
-	{#if filteredTodos.length === 0}
-		<div class="flex h-full flex-col items-center justify-center">
-			<p class="text-slate-250 text-sm">No todos found</p>
-		</div>
-	{:else}
-		<div class="grid">
-			<TodoList todos={filteredTodos} class="px-2" />
-		</div>
+	{#if filteredTodos}
+		<!-- {#await filteredTodos}
+			<div class="space-y-2 px-2">
+				{#each { length: 10 } as _}
+					<Skeleton class="h-14 w-full" />
+				{/each}
+			</div>
+		{:then todos}
+			{#if todos.length === 0}
+				<div class="flex h-full flex-col items-center justify-center">
+					<p class="text-slate-250 text-sm">No todos found</p>
+				</div>
+			{:else}
+				<TodoList {todos} class="px-2" />
+			{/if}
+		{/await} -->
+
+		{@const todos = filteredTodos}
+		{#if todos.length === 0}
+			<div class="flex h-full flex-col items-center justify-center">
+				<p class="text-slate-250 text-sm">No todos found</p>
+			</div>
+		{:else}
+			<TodoList {todos} class="px-2" />
+		{/if}
 	{/if}
 </main>
 
 <div class="w-full border-t p-2">
 	<form method="POST" action="?/create" class="flex gap-2" use:enhance>
 		<Label class="sr-only" for="todo-input">Create Todo</Label>
-
 		<Input
 			type="text"
-			name="todo-text"
+			name="title"
 			id="todo-input"
-			value={form?.text ?? ''}
 			placeholder="Add a new todo"
 			aria-label="create todo"
 			autocomplete="off"
@@ -74,9 +90,9 @@
 </div>
 
 {#if form}
-	{#if form.error}
+	{#if form.message}
 		<div class="bg-red-500 p-2">
-			<p class="text-sm text-white">{form.error}</p>
+			<p class="text-sm text-white">{form.message}</p>
 		</div>
 	{/if}
 {/if}

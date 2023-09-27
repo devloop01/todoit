@@ -1,40 +1,55 @@
-import type { PageServerLoad, Actions } from './$types';
+import type { PageServerLoad, Actions, RequestEvent } from './$types';
 import type { TodoFilter } from '$lib/types';
 
-import { fail } from '@sveltejs/kit';
-import { createTodo, updateTodo, deleteTodo, getFilteredTodos } from '$lib/server/db/actions/todos';
+import { fail, redirect } from '@sveltejs/kit';
+import { todos } from '$lib/server/db/actions';
 import { todoFilter } from '$lib/schema';
-// import { redirect } from 'sveltekit-flash-message/server';
+
+const getUser = async (event: RequestEvent) => {
+	const session = await event.locals.auth.validate();
+	const user = session?.user;
+	if (!user) throw redirect(302, '/');
+
+	return user;
+};
 
 export const load = (async (event) => {
-	const parsedFilter = todoFilter.safeParse(event.url.searchParams.get('filter') ?? 'remaining');
 	let filter: TodoFilter = 'remaining';
+	const parsedFilter = todoFilter.safeParse(event.url.searchParams.get('filter') ?? filter);
 	if (parsedFilter.success) filter = parsedFilter.data;
-	// else {
-	// 	throw redirect({ type: 'error', message: 'invalid filter!' }, event);
-	// }
+
+	const user = await getUser(event);
 
 	return {
-		filteredTodos: getFilteredTodos(filter)
+		filteredTodos: todos.getFiltered({ userId: user.userId, filter }),
+		streamed: {
+			// filteredTodos: todos.getFiltered({ userId: user.userId, filter })
+		}
 	};
 }) satisfies PageServerLoad;
 
 export const actions = {
-	create: async ({ request }) => {
-		const formData = await request.formData();
-		const todoText = formData.get('todo-text')?.toString();
+	create: async (event) => {
+		const user = await getUser(event);
 
-		if (!todoText)
+		const formData = await event.request.formData();
+
+		const title = formData.get('title')?.toString();
+
+		if (!title)
 			return fail(422, {
 				message: 'No todo text provided'
 			});
 
-		await createTodo(todoText);
+		await todos.create({ userId: user.userId, title });
 	},
 
-	delete: async ({ request }) => {
-		const formData = await request.formData();
-		const todoId = formData.get('todo-id')?.toString();
+	delete: async (event) => {
+		const user = await getUser(event);
+
+		const formData = await event.request.formData();
+
+		const todoId = formData.get('todoId')?.toString();
 
 		if (!todoId)
 			return fail(422, {
@@ -42,7 +57,7 @@ export const actions = {
 			});
 
 		try {
-			await deleteTodo(todoId);
+			await todos.delete({ userId: user.userId, id: todoId });
 		} catch (e) {
 			return fail(404, {
 				message: 'Todo not found'
@@ -50,10 +65,13 @@ export const actions = {
 		}
 	},
 
-	toggle: async ({ request }) => {
-		const formData = await request.formData();
-		const todoId = formData.get('todo-id')?.toString();
-		const isTodoCompleted = formData.get('todo-is-complete')?.toString();
+	toggle: async (event) => {
+		const user = await getUser(event);
+
+		const formData = await event.request.formData();
+
+		const todoId = formData.get('todoId')?.toString();
+		const isTodoCompleted = formData.get('todoIsComplete')?.toString();
 
 		if (!todoId || !isTodoCompleted)
 			return fail(422, {
@@ -61,7 +79,11 @@ export const actions = {
 			});
 
 		try {
-			await updateTodo(todoId, { completed: isTodoCompleted === 'true' ? false : true });
+			await todos.update({
+				userId: user.userId,
+				id: todoId,
+				todo: { completed: isTodoCompleted === 'true' ? false : true }
+			});
 		} catch (e) {
 			return fail(404, {
 				message: 'Todo not found'
