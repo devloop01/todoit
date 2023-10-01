@@ -5,12 +5,12 @@
 	"private": true,
 	"scripts": {
 		"dev": "vite dev",
-		"build": "vite build",
+		"build": "pnpm check && vite build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-		"lint": "prettier --plugin-search-dir . --check . && eslint .",
-		"format": "prettier --plugin-search-dir . --write .",
+		"lint": "eslint .",
+		"format": "prettier  --write .",
 		"db:start": "supabase start",
 		"db:stop": "supabase stop --backup",
 		"db:status": "supabase status",
@@ -70,3 +70,4 @@
 		"zod": "^3.22.2"
 	}
 }
+
