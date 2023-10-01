@@ -6,8 +6,8 @@
 
 	import { Button } from '$components/ui/button';
 	import { PasswordInput } from '$components/ui/password-input';
-	import { Card, CardContent } from '$components/ui/card';
-	import { Heading, Small } from '$components/typography';
+	import { Card, CardContent, CardFooter } from '$components/ui/card';
+	import { Heading, Small, Text } from '$components/typography';
 	import PageError from '$components/page-error.svelte';
 	import { TextInput } from '$components/ui/text-input';
 	import { toast } from '$components/ui/toast';
@@ -31,11 +31,9 @@
 </svelte:head>
 
 <div class="space-y-6">
-	<div class="">
-		<Heading level="h2">Create account</Heading>
-		<Small
-			>Already have an account? <a href="/login" class="font-medium text-primary">Sign in</a></Small
-		>
+	<div class="space-y-2">
+		<Heading level="h2">Sign Up</Heading>
+		<Text variant="muted">Create an account and start managing your tasks</Text>
 	</div>
 
 	<div class="space-y-2">
@@ -80,11 +78,20 @@
 							disabled={$submitting}
 						/>
 						<div class="pt-2.5">
-							<Button class="w-full" loading={$submitting}>Next</Button>
+							<Button class="w-full" loading={$submitting}>Register</Button>
 						</div>
 					</div>
 				</form>
 			</CardContent>
+
+			<CardFooter class="grid gap-2.5">
+				<Small>
+					<a href="/forgot-password" class="text-primary hover:underline">Forgot password?</a>
+				</Small>
+				<Small>
+					Do you have an account? <a href="/login" class="text-primary hover:underline">Sign In</a>
+				</Small>
+			</CardFooter>
 		</Card>
 	</div>
 </div>

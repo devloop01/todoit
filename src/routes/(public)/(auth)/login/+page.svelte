@@ -9,7 +9,7 @@
 	import { PasswordInput } from '$components/ui/password-input';
 	import { Card, CardContent, CardFooter } from '$components/ui/card';
 	import PageError from '$components/page-error.svelte';
-	import { Heading, Small } from '$components/typography';
+	import { Heading, Small, Text } from '$components/typography';
 	import { TextInput } from '$components/ui/text-input';
 	import { toast } from '$components/ui/toast';
 
@@ -32,11 +32,9 @@
 </svelte:head>
 
 <div class="space-y-6">
-	<div>
+	<div class="space-y-2">
 		<Heading level="h2">Sign In</Heading>
-		<Small>
-			Don't have an account? <a href="/register" class="font-medium text-primary">Sign up</a>
-		</Small>
+		<Text variant="muted">Sign in to your account and start managing your tasks</Text>
 	</div>
 
 	<div class="space-y-2">
@@ -72,9 +70,13 @@
 				</form>
 			</CardContent>
 
-			<CardFooter>
+			<CardFooter class="grid gap-2.5">
 				<Small>
 					<a href="/forgot-password" class="text-primary hover:underline">Forgot password?</a>
+				</Small>
+				<Small>
+					Don’t have an account? <a href="/register" class="text-primary hover:underline">Sign Up</a
+					>
 				</Small>
 			</CardFooter>
 		</Card>
