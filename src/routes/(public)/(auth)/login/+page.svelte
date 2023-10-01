@@ -9,7 +9,7 @@
 	import { PasswordInput } from '$components/ui/password-input';
 	import { Card, CardContent, CardFooter } from '$components/ui/card';
 	import PageError from '$components/page-error.svelte';
-	import { Heading, Small, Text } from '$components/typography';
+	import { Heading, Small } from '$components/typography';
 	import { TextInput } from '$components/ui/text-input';
 	import { toast } from '$components/ui/toast';
 

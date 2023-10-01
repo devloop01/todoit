@@ -7,7 +7,6 @@
 	import { Button } from '$components/ui/button';
 	import { Label } from '$components/ui/label';
 	import { Input } from '$components/ui/input';
-	// import { Skeleton } from '$components/ui';
 
 	export let data: PageData;
 	export let form: ActionData;

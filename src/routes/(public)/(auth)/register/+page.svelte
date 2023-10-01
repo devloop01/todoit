@@ -4,11 +4,10 @@
 	import { superForm } from 'sveltekit-superforms/client';
 	import { signUpSchema } from '$lib/schema/auth';
 
-	import { LoaderIcon } from 'lucide-svelte';
 	import { Button } from '$components/ui/button';
 	import { PasswordInput } from '$components/ui/password-input';
-	import { Card, CardContent, CardFooter } from '$components/ui/card';
-	import { Heading, Small, Text } from '$components/typography';
+	import { Card, CardContent } from '$components/ui/card';
+	import { Heading, Small } from '$components/typography';
 	import PageError from '$components/page-error.svelte';
 	import { TextInput } from '$components/ui/text-input';
 	import { toast } from '$components/ui/toast';
