@@ -9,3 +9,4 @@ export * from './skeleton';
 export * from './text-input';
 export * from './toast';
 export * from './link';
+export * as DropdownMenu from './dropdown-menu';

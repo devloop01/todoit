@@ -24,6 +24,7 @@
 		"@fontsource-variable/open-sans": "^5.0.13",
 		"@formkit/auto-animate": "^0.8.0",
 		"@lucia-auth/adapter-postgresql": "^2.0.1",
+		"bits-ui": "^0.5.7",
 		"class-variance-authority": "^0.7.0",
 		"clsx": "^2.0.0",
 		"drizzle-orm": "^0.28.6",
@@ -70,4 +71,3 @@
 		"zod": "^3.22.2"
 	}
 }
-
