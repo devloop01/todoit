@@ -5,9 +5,8 @@
 	import { isLoggedIn } from '$lib/utils/is';
 
 	import { MoonIcon, SunIcon, LogOut, Settings, User, MoreVerticalIcon } from 'lucide-svelte';
-	import { Button, DropdownMenu, buttonVariants } from '$components/ui';
+	import { Button, DropdownMenu } from '$components/ui';
 	import { enhance } from '$app/forms';
-	import { melt } from '@melt-ui/svelte';
 
 	onMount(() => {
 		loadTheme();
@@ -32,16 +31,14 @@
 		{#if $isLoggedIn}
 			<DropdownMenu.Root>
 				<DropdownMenu.Trigger asChild let:builder>
-					<button
-						use:melt={builder}
-						class={buttonVariants({
-							variant: 'outline',
-							size: 'icon',
-							class: 'data-[state="open"]:bg-accent'
-						})}
+					<Button
+						builders={[builder]}
+						variant="outline"
+						size="icon"
+						class="data-[state='open']:bg-accent"
 					>
 						<MoreVerticalIcon size="16" />
-					</button>
+					</Button>
 				</DropdownMenu.Trigger>
 
 				<DropdownMenu.Content class="w-56">
@@ -68,7 +65,7 @@
 				</DropdownMenu.Content>
 			</DropdownMenu.Root>
 		{:else}
-			<a href="/login" class={buttonVariants()}>Login</a>
+			<Button href="/login">Login</Button>
 		{/if}
 	</div>
 </header>

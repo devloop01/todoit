@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Text } from '$components/typography';
-	import { buttonVariants } from '$components/ui/button';
+	import { Button } from '$components/ui/button';
 	import { Card, CardContent, CardHeader } from '$components/ui/card';
 </script>
 
@@ -14,7 +14,7 @@
 			<a href="/">
 				<span class="font-inter text-2xl font-bold text-primary">todoit.</span>
 			</a>
-			<a href="/login" class={buttonVariants()}>Login</a>
+			<Button href="/login">Login</Button>
 		</CardHeader>
 		<CardContent class="py-3">
 			<Text>A simple Todo Application</Text>
