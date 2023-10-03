@@ -1,5 +1,5 @@
 import { z, type AnyZodObject, ZodError } from 'zod';
-import { and, desc, eq } from 'drizzle-orm';
+import { and, eq } from 'drizzle-orm';
 
 import { todoFilter } from '@/lib/schema';
 
@@ -74,10 +74,9 @@ const getTodo = b.input(z.object({ id: z.string() })).function(async ({ input, e
 
 	const { userId, id } = input;
 
-	const [todo] = await db
-		.select()
-		.from(Schema.todos)
-		.where(and(eq(Schema.todos.user_id, userId), eq(Schema.todos.id, id)));
+	const todo = await db.query.todos.findFirst({
+		where: (todos, { and, eq }) => and(eq(todos.user_id, userId), eq(todos.id, id))
+	});
 
 	return todo;
 });
@@ -90,11 +89,10 @@ const getTodos = b.input(z.object({})).function(async ({ input, error }) => {
 
 	const { userId } = input;
 
-	const todos = await db
-		.select()
-		.from(Schema.todos)
-		.where(and(eq(Schema.todos.user_id, userId)))
-		.orderBy(desc(Schema.todos.created_at));
+	const todos = await db.query.todos.findMany({
+		where: (todos, { eq }) => and(eq(todos.user_id, userId)),
+		orderBy: (todos, { desc }) => desc(todos.created_at)
+	});
 
 	return todos;
 });
@@ -109,13 +107,13 @@ const getFilteredTodos = b
 
 		const { userId, filter } = input;
 
-		return await db
-			.select()
-			.from(Schema.todos)
-			.where(
-				and(eq(Schema.todos.user_id, userId), eq(Schema.todos.completed, filter === 'completed'))
-			)
-			.orderBy(desc(Schema.todos.created_at));
+		const todos = await db.query.todos.findMany({
+			where: (todos, { and, eq }) =>
+				and(eq(todos.user_id, userId), eq(todos.completed, filter === 'completed')),
+			orderBy: (todos, { desc }) => desc(todos.created_at)
+		});
+
+		return todos;
 	});
 
 const updateTodo = b
