@@ -21,10 +21,7 @@ export const load = (async (event) => {
 	const user = await getUser(event);
 
 	return {
-		filteredTodos: todos.getFiltered({ userId: user.userId, filter }),
-		streamed: {
-			// filteredTodos: todos.getFiltered({ userId: user.userId, filter })
-		}
+		filteredTodos: todos.getFiltered({ userId: user.userId, filter })
 	};
 }) satisfies PageServerLoad;
 
