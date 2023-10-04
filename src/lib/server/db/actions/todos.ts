@@ -1,43 +1,11 @@
-import { z, type AnyZodObject, ZodError } from 'zod';
+import { z } from 'zod';
 import { and, eq } from 'drizzle-orm';
 
 import { todoFilter } from '@/lib/schema';
 
 import { Schema, db } from '$lib/server/db';
 import { generateId } from '$lib/utils/id';
-
-// builder function
-
-type BuilderOptions<T> = {
-	schema: T;
-};
-
-function builder<T extends AnyZodObject>(options: BuilderOptions<T>) {
-	const { schema: parentSchema } = options;
-
-	type Callback<T, R> = (options: { input: T; error: ZodError | null }) => R;
-	type Overwrite<T, U> = Pick<T, Exclude<keyof T, keyof U>> & U;
-
-	return {
-		input<K extends AnyZodObject>(schema: K) {
-			const mergedSchema = parentSchema ? parentSchema.merge(schema) : schema;
-
-			return {
-				function<R>(callback: Callback<z.infer<T> & z.infer<K>, R>) {
-					return (input: Overwrite<z.infer<T>, z.infer<K>>) => {
-						const parsedData = mergedSchema.safeParse(input);
-
-						if (parsedData.success) {
-							return callback({ input: parsedData.data, error: null });
-						} else {
-							return callback({ input, error: parsedData.error });
-						}
-					};
-				}
-			};
-		}
-	};
-}
+import { builder } from './action-builder';
 
 const defaultSchema = z.object({ userId: z.string() });
 
