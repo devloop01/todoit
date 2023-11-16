@@ -18,7 +18,7 @@ export async function sendPasswordResetLink(options: z.infer<typeof optionsSchem
 			props: { url, email }
 		});
 
-		const mail = await resend.emails.send({
+		const { data, error } = await resend.emails.send({
 			from: 'Todoit <noreply@sikriti.me>',
 			to: [email],
 			reply_to: 'noreply@sikriti.me',
@@ -32,8 +32,12 @@ export async function sendPasswordResetLink(options: z.infer<typeof optionsSchem
 			]
 		});
 
+		if (error || !data) {
+			throw new Error(error?.message);
+		}
+
 		console.log(`Your password reset link: ${url}`);
-		console.log(`email-${mail.id} sent to: ${email}`);
+		console.log(`email-${data.id} sent to: ${email}`);
 	} catch (error) {
 		console.log('Email not sent!\n');
 		if (error instanceof z.ZodError) {
